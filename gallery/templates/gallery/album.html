@@ -7,12 +7,15 @@
 
 {% block content %}
 
-	
-	<article>
+	<h1>{{ page.title }}</h1>
+	{{ page.desc|richtext }}
+	<div>
     {% for block in page.body %}
         <section>{% include_block block%}</section>
     {% endfor %}
-	</article>
+
+
+	</div>
 
     <div class="intro">{{ page.intro|richtext }}</div>
 
