@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-gallerypage{% endblock %}
+
+{% block content %}
+
+	
+	<article>
+    {% for block in page.body %}
+        <section>{% include_block block%}</section>
+    {% endfor %}
+	</article>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in page.get_children %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+      
+        {{ post.specific.title}}
+        {{ post.specific.images}}
+    {% endfor %}
+
+{% endblock %}
