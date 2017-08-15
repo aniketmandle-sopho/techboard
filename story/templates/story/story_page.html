@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-storypage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <p class="meta">Posted By {{ page.author }} | {{ page.date }} | Posted in &nbsp;
+    {% with categories=page.categories.all %}
+    {% if categories %}
+            {% for category in categories %}
+                    {% image category.icon fill-28x28 style="vertical-align: middle" %}
+                    {{ category.name }}
+                    &nbsp;
+            {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    </p>
+    
+    <div class="intro">{{ page.intro }}</div>
+
+    <article>
+    {% for block in page.body %}
+         {% if block.block_type == 'images' %}
+            
+            {%image block.value.image fill-320x240%}
+            {{block.value.caption}}
+        {% else %}
+            <section class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </section>
+        {% endif %}    
+
+        
+        
+    {% endfor %}
+</article>
+    
+    
+    {% if page.tags.all.count %}
+    <div class="tags">
+        <h3>Tags</h3>
+        {% for tag in page.tags.all %}
+            <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
+{% endblock %}

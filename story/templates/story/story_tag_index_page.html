@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    {% if request.GET.tag|length %}
+        <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
+    {% endif %}
+
+    {% for storypage in storypages %}
+
+          <p>
+              <strong><a href="{% pageurl storypage %}">{{ storypage.title }}</a></strong><br />
+              <small>Revised: {{ storypage.latest_revision_created_at }}</small><br />
+              {% if storypage.author %}
+                <p>By {{ storypage.author }}</p>
+              {% endif %}
+          </p>
+
+    {% empty %}
+        No pages found with that tag.
+    {% endfor %}
+
+{% endblock %}
