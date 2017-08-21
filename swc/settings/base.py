@@ -31,6 +31,9 @@ INSTALLED_APPS = [
     'gallery',
     'projects',
     'story',
+    'users',
+    'events',
+    'achievements',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
