@@ -38,6 +38,7 @@ class AchievementsIndexPage(Page):
         blogpages = self.get_children().live().order_by('-first_published_at')
         context['blogpages'] = blogpages
         return context
+    subpage_types = ['achievements.AchievementsPage']
 
 class AchievementsPage(Page):
     date = models.DateField("Post date")
@@ -66,3 +67,4 @@ class AchievementsPage(Page):
         StreamFieldPanel('carousel'),
 
     ]
+    #parent_page_types = ['achievements.AchievementsIndexPage']

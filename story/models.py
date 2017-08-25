@@ -37,8 +37,10 @@ class StoryIndexPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
+    subpage_types = ['story.StoryPage']
 class StoryPageTag(TaggedItemBase):
     content_object = ParentalKey('StoryPage', related_name='tagged_items')
+
 
 
 class StoryPage(Page):
@@ -95,6 +97,7 @@ class StoryTagIndexPage(Page):
         context = super(StoryTagIndexPage, self).get_context(request)
         context['storypages'] = storypages
         return context
+
 
 @register_snippet
 class StoryCategory(models.Model):

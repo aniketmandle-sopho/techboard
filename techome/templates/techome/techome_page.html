@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="carousel">{{page.carousel}}</div>
+    <div class="about_us">{{ page.intro|richtext }}</div>
+    <div class="vision">{{page.body}}</div>
+
+    {% for post in blogpages %}
+        {% with post=post.specific %}
+            <hr />
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            {{ post.specific.intro|richtext }}
+        {% endwith %}
+    {% endfor %}
+
+{% endblock %}

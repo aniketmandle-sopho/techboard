@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-clubhomepage{% endblock %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+
+<div>
+    <article>
+        {% for block in page.slideshow %}
+        {% if block.block_type == 'Image' %}
+        {%image block.value.image fill-320x240%}
+        {{block.value.caption}}
+        {% endif %}
+        {% endfor %}
+    </article>
+</div>
+
+{%for post in aevent %}
+<hr>
+    {% for block in post.specific.event%}
+        {%if forloop.counter0 <= 1 %}
+            {% if block.block_type == 'evnt' %}
+                {% if block.value.isActive == 1 %} 
+                    <h3> {{ block.value.title }} </h3>
+                    <p> {{ block.value.intro }}</p>
+                    <p>Event Starts At :{{ block.value.start }}</p>
+                    <p>Location :{{ block.value.venue }}</p>
+                    <hr>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{%endfor%}
+
+<p>About Us: </br> {{ page.AboutUs|richtext }}</p>
+<p>Vision: </br> {{ page.Vision|richtext }}</p>
+
+{% endblock %}

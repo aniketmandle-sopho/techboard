@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-userpage{% endblock %}
+
+{% block content %}
+	<h1>{{ page.title }}</h1>
+
+	<div class="intro">{{ page.intro|richtext }}</div>
+	<hr>
+	{% for block in page.members  %}
+				
+		<h3> {{ block.value.name }} </h3>
+		<p>{{ block.value.intro }}</p>
+		<p>{% image block.value.dp fill-320x240 %}</p>
+
+		<p>{{ block.value.rollno }}</p>
+		<p>{{ block.value.phoneno }}</p>
+
+		
+		
+		<hr>
+	{% endfor %}
+
+{% endblock %}
