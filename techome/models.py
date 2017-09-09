@@ -15,10 +15,9 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 
 class TechomePage(Page):
 
-    subpage_types = ['clubHomePage.clubHomePage']
     # Database fields
-    intro = RichTextField('about_us', blank=True)
-    body = RichTextField('vision', blank=True)
+    about_us    = RichTextField('about_us', blank=True)
+    vision = RichTextField('vision', blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -26,13 +25,22 @@ class TechomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    related_links = StreamField([
+        ('link', blocks.StructBlock([
+            ('name', blocks.CharBlock(max_length=255)),
+            ('url', blocks.URLBlock()),
+        ])),
+        ], blank = True)
 
     carousel = StreamField([
+            #for images
         ('image', ImageChooserBlock()),
+            # for quotes by people
         ('quotation', blocks.StructBlock([
             ('text', blocks.TextBlock()),
             ('author', blocks.CharBlock()),
         ])),
+        # for video embedding
         ('video', EmbedBlock()),
         ],
         blank=True)
@@ -44,32 +52,17 @@ class TechomePage(Page):
         context['blogpages'] = blogpages
         return context
 
-
-
     # Editor panels configuration
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('body', classname="full"),
-        InlinePanel('related_links', label="Related links"),
+        FieldPanel('about_us', classname="full"),
+        FieldPanel('vision', classname="full"),
         StreamFieldPanel('carousel'),
+        StreamFieldPanel('related_links'),
+
     ]
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ImageChooserPanel('feed_image'),
-    ]
-
-
-
-
-class TechomePageRelatedLink(Orderable):
-    subpage_types = ['clubHomePage.clubHomePage']
-    page = ParentalKey(TechomePage, related_name='related_links')
-    name = models.CharField(max_length=255)
-    url = models.URLField()
-
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('url'),
     ]

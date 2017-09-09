@@ -7,11 +7,16 @@
 {% block content %}
     <h1>{{ page.title }}</h1>
     <p class="meta">{{ page.date }}</p>
-
-    <div class="intro">{{ page.intro|richtext }}</div>
+    <hr />
+    <div class="competition_intro">{{ page.competition_intro|richtext }}</div>
+    <hr />
     <div class="carousel">{{page.carousel}}</div>
+    <hr />
+    <div class="description">{{ page.description|richtext }}</div>
+    <hr />
 
-    {{ page.body|richtext }}
+
+
 
     <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 

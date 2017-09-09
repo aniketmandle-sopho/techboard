@@ -42,29 +42,20 @@ class AchievementsIndexPage(Page):
 
 class AchievementsPage(Page):
     date = models.DateField("Post date")
-    intro = RichTextField()
-    body = RichTextField(blank=True)
+    competition_intro = RichTextField("About the Achievement")
+    description = RichTextField("Descriptopn")
 
     carousel = StreamField([
         ('image', ImageChooserBlock()),
-        ('quotation', blocks.StructBlock([
-            ('text', blocks.TextBlock()),
-            ('author', blocks.CharBlock()),
-        ])),
         ('video', EmbedBlock()),
         ],
         blank=True)
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
-
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        FieldPanel('competition_intro'),
+        FieldPanel('description', classname="full"),
         StreamFieldPanel('carousel'),
 
     ]
-    #parent_page_types = ['achievements.AchievementsIndexPage']
+    parent_page_types = ['achievements.AchievementsIndexPage']

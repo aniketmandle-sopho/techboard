@@ -31,33 +31,74 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=30)
-    clubname = models.CharField(max_length=30)
+    #clubname = models.CharField(max_length=30)
+
+    clubname_choices = (
+    ('automobile', 'Automobile'),
+    ('robotics', 'robotics'),
+    ('aeromodelling', 'aeromodelling'),
+    ('electronics', 'electronics'),
+    ('prakriti', 'prakriti'),
+    ('edc', 'EntrepreneurshipDevelopmentCell'),
+    ('fnc', 'FinanceandEconomics'),
+    ('coding', 'CodingClub'),
+    ('astronomy', 'Astronomy'),
+    ('acumen', 'Acumen'),
+    ('radiog', 'RadioG'),
+     )
+
+    clubname = models.CharField(
+        max_length=20,
+        choices=clubname_choices,
+    )
+
     rollno = models.PositiveIntegerField(default=1)
     phoneno = models.PositiveIntegerField(default=1)
-    dp = models.ImageField()
-    #bio = models.TextField(max_length=500, blank=True)
-    #location = models.CharField(max_length=30, blank=True)
+    display_picture = models.ImageField()
     birth_date = models.DateField(null=True)
+
     def __str__(self):
 		content = "PROFILE_NAME : " + self.username
 		return content
 
-class Members(blocks.StructBlock):
-    dp = ImageChooserBlock()
-    name = blocks.CharBlock()
-    rollno = blocks.IntegerBlock()
-    phoneno = blocks.IntegerBlock()
 
    
 class UserPage(Page):
     intro = RichTextField(max_length=250)
-    members = StreamField([
-        ('Members',Members()),
+    clubname_choices = (
+    ('automobile', 'Automobile'),
+    ('robotics', 'robotics'),
+    ('aeromodelling', 'aeromodelling'),
+    ('electronics', 'electronics'),
+    ('prakriti', 'prakriti'),
+    ('edc', 'EntrepreneurshipDevelopmentCell'),
+    ('fnc', 'FinanceandEconomics'),
+    ('coding', 'CodingClub'),
+    ('astronomy', 'Astronomy'),
+    ('acumen', 'Acumen'),
+    ('radiog', 'RadioG'),
+     )
 
-    ])
+    clubname = models.CharField(
+        max_length=20,
+        choices=clubname_choices,
+    )
+
+
+    def get_context(self, request):
+        members = []    
+        context = super(UserPage, self).get_context(request)
+        users = User.objects.all()
+        for user in users:
+            if(user.profile.clubname == self.clubname):                
+                members.append(user)
+        context['members'] = members
+        return context
+
+
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
-        StreamFieldPanel('members'),
+        FieldPanel('clubname'),
     ]
 
 

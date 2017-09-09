@@ -14,7 +14,7 @@
         {% with post=post.specific %}
             <hr />
             <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-            {{ post.specific.intro|richtext }}
+            {{ post.specific.competition_intro|richtext }}
         {% endwith %}
     {% endfor %}
 

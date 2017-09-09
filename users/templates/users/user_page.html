@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
 
 {% block body_class %}template-userpage{% endblock %}
 
@@ -9,18 +12,18 @@
 
 	<div class="intro">{{ page.intro|richtext }}</div>
 	<hr>
-	{% for block in page.members  %}
-				
-		<h3> {{ block.value.name }} </h3>
-		<p>{{ block.value.intro }}</p>
-		<p>{% image block.value.dp fill-320x240 %}</p>
 
-		<p>{{ block.value.rollno }}</p>
-		<p>{{ block.value.phoneno }}</p>
 
-		
-		
-		<hr>
-	{% endfor %}
+
+
+{% for i in members%}
+
+   <div> 	{{ i.profile.useranme }}</div> 
+    <div> 	{{ i.profile.rollno }}</div> 
+     <div> 	{{ i.profile.phoneno }}</div> 
+     
+     <p><img src=" ../media/{{ i.profile.display_picture }}" width="300px"></p>
+      
+{% endfor %}
 
 {% endblock %}

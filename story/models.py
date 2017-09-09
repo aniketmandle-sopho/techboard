@@ -7,14 +7,13 @@ from wagtail.wagtailsnippets.models import register_snippet
 
 # Create your models here.
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.wagtailsearch import index
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
@@ -23,21 +22,22 @@ from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 
 
 
-
-
-
 class StoryIndexPage(Page):
     intro = RichTextField(blank=True)
+    
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super(StoryIndexPage, self).get_context(request)
         storypages = self.get_children().live().order_by('-first_published_at')
         context['storypages'] = storypages
         return context
+    
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
     subpage_types = ['story.StoryPage']
+
+
 class StoryPageTag(TaggedItemBase):
     content_object = ParentalKey('StoryPage', related_name='tagged_items')
 
@@ -47,6 +47,7 @@ class StoryPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250, help_text="Listen up buddy This thing is non editable Yeah!")
     author = models.CharField(max_length=250,default="Anonymous")
+    
     body = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -63,6 +64,7 @@ class StoryPage(Page):
         ('quote',blocks.BlockQuoteBlock()),
         ('embed',EmbedBlock()),
     ])
+    
     tags = ClusterTaggableManager(through=StoryPageTag, blank=True)
     
     categories = ParentalManyToManyField('story.StoryCategory', blank=True)
@@ -86,7 +88,6 @@ class StoryPage(Page):
 
 
 class StoryTagIndexPage(Page):
-
     def get_context(self, request):
 
         # Filter by tag

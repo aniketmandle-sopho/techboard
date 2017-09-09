@@ -5,8 +5,7 @@ from django.db import models
 
 # Create your models here.
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailcore.fields import RichTextField,StreamField
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
@@ -26,27 +25,24 @@ class ProjectsPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
+
     subpage_types = ['projects.Projects']
 
 class Projects(Page):
-	
-	
-	start = models.DateField("startdate")
-	end = models.DateField("enddate")
-	body = StreamField([
-        
+    start = models.DateField("startdate")
+    end = models.DateField("enddate")
+
+    body = StreamField([
         ('Descrip', blocks.RichTextBlock()),
         ('Images', ImageChooserBlock()),
         ('Link', blocks.URLBlock()),
         ('Documents',DocumentChooserBlock()),
         ('video',EmbedBlock()),
         ('Gist',blocks.RichTextBlock()),
-
     ])
 
-	content_panels = Page.content_panels + [
-    	
-        FieldPanel('start'),
+    content_panels = Page.content_panels + [
+    	FieldPanel('start'),
         FieldPanel('end'),
         StreamFieldPanel('body'),
     ]
