@@ -66,3 +66,5 @@ class HomePage(Page):
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ImageChooserPanel('feed_image'),
     ]
+    
+    subpage_types = ['clubHomePage.clubHomePage']
