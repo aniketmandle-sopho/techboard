@@ -34,8 +34,8 @@
 <script type="text/javascript">
 var slugurl = '/{%block slugurl%}{%endblock%}';
 var clubname = '{%block name%}{%endblock%}';
-document.getElementById('main-header').href = slugurl;
-document.getElementById('homelink').href = slugurl;
+$('#main-header').attr('href',slugurl);
+$('#homelink').attr('href',slugurl);
 $('#main-header').text(clubname);
 </script>
 </body>
