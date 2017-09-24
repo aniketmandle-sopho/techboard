@@ -1,11 +1,33 @@
 {% extends "base.html" %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% load wagtailcore_tags %}
+
 
 {% block content %}
-    <h1>Welcome to your new Wagtail site!</h1>
+    <h1>{{ page.title }}</h1>
+    <hr />
+    <div class="carousel">{{page.carousel}}</div>
+    <hr />
+    <div class="about_us">{{ page.about_us|richtext }}</div>
+    <hr />
+    <div class="vision">{{page.vision}}</div>
+    <hr />
 
-    <p>You can access the admin interface <a href="{% url 'wagtailadmin_home' %}">here</a> (make sure you have run "./manage.py createsuperuser" in the console first).</p>
+    {% for post in blogpages %}
+        {% with post=post.specific %}
+            <hr />
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            {{ post.specific.about_us|richtext }}
+        {% endwith %}
+    {% endfor %}
+    <hr />
 
-    <p>If you haven't already given the documentation a read, head over to <a href="http://docs.wagtail.io/">http://docs.wagtail.io</a> to start building on Wagtail</p>
+    <div class="related_links">
+        {% for lin in page.related_links %}
+         <a href="{{ lin.value.url }}"> {{ lin.value.name }}</a>
+        {% endfor %}
+    </div>
+
+
+
 {% endblock %}
