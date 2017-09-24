@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'events',
     'achievements',
     'clubHomePage',
-    'techome',
+    
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
