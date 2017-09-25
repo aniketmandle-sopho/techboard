@@ -1,0 +1,133 @@
+{% extends "clubHomePage/base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-clubhomepage{% endblock %}
+{%block slugurl%}{{page.slug}}{%endblock%}
+{%block slugurlrepeat%}{{page.slug}}{%endblock%}
+{%block name%}{{page.title}}{%endblock%}
+{%block navbargenerator%}<li class='active' ><a href='/' id='homelink'>Home</a></li>
+{%for pgc in page.get_children %}
+<li><a href="{{pgc.slug}}">{{pgc.title}}</a></li>
+{%endfor%}
+{%endblock%}
+{% block content %}
+<div class="split-slideshow">
+  <div class="slideshow">
+    <div class="slider">
+      <div class="item">
+        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-2.jpg" />
+    </div>
+    <div class="item">
+        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-3.jpg" />
+    </div>
+    <div class="item">
+        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-4.jpg" />
+    </div>
+    <div class="item">
+        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-1.jpg" />
+    </div>
+</div>
+</div>
+<div class="slideshow-text">
+    <div class="item">Canyon</div>
+    <div class="item">Desert</div>
+    <div class="item">Erosion</div>
+    <div class="item">Shape</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    var $slider = $('.slideshow .slider'),
+    maxItems = $('.item', $slider).length,
+    dragging = false,
+    tracking,
+    rightTracking;
+
+    $sliderRight = $('.slideshow').clone().addClass('slideshow-right').appendTo($('.split-slideshow'));
+
+    rightItems = $('.item', $sliderRight).toArray();
+    reverseItems = rightItems.reverse();
+    $('.slider', $sliderRight).html('');
+    for (i = 0; i < maxItems; i++) {
+        $(reverseItems[i]).appendTo($('.slider', $sliderRight));
+    }
+
+    $slider.addClass('slideshow-left');
+    $('.slideshow-left').slick({
+        vertical: true,
+        verticalSwiping: true,
+        arrows: false,
+        infinite: true,
+        dots: false,
+        speed: 1000,
+        cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
+    }).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+
+        if (currentSlide > nextSlide && nextSlide == 0 && currentSlide == maxItems - 1) {
+            $('.slideshow-right .slider').slick('slickGoTo', -1);
+            $('.slideshow-text').slick('slickGoTo', maxItems);
+        } else if (currentSlide < nextSlide && currentSlide == 0 && nextSlide == maxItems - 1) {
+            $('.slideshow-right .slider').slick('slickGoTo', maxItems);
+            $('.slideshow-text').slick('slickGoTo', -1);
+        } else {
+            $('.slideshow-right .slider').slick('slickGoTo', maxItems - 1 - nextSlide);
+            $('.slideshow-text').slick('slickGoTo', nextSlide);
+        }
+    })
+    function changeImage(){
+     $slider.slick('slickNext')
+ };
+ setInterval(changeImage,2000);
+ 
+ $('.slideshow-right .slider').slick({
+    swipe: false,
+    vertical: true,
+    arrows: false,
+    infinite: true,
+    speed: 950,
+    cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)',
+    initialSlide: maxItems - 1
+});
+ $('.slideshow-text').slick({
+    swipe: false,
+    vertical: true,
+    arrows: false,
+    infinite: true,
+    speed: 900,
+    cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
+});
+</script>
+
+<div>
+    <article>
+        {% for block in page.slideshow %}
+        {% if block.block_type == 'Image' %}
+        {%image block.value.image fill-320x240%}
+        {{block.value.caption}}
+        {% endif %}
+        {% endfor %}
+    </article>
+</div>
+<div class='contentname '>
+    {%for post in aevent %}
+    <hr>
+    {% for block in post.specific.event%}
+    {%if forloop.counter0 <= 1 %}
+    {% if block.block_type == 'evnt' %}
+    {% if block.value.isActive == 1 %} 
+    <h3> {{ block.value.title }} </h3>
+    <p> {{ block.value.intro }}</p>
+    <p>Event Starts At :{{ block.value.start }}</p>
+    <p>Location :{{ block.value.venue }}</p>
+    <hr>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {%endfor%}
+
+    <p>About Us: </br> {{ page.AboutUs|richtext }}</p>
+    <p>Vision: </br> {{ page.Vision|richtext }}</p>
+</div>
+{% endblock %}

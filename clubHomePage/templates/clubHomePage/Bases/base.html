@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		{%block title%}{%endblock%}
+	</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+	<!--Font Awesome Import-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
+	<style type="text/css">
+		html {
+			height:100%;
+		}
+		body {
+			margin-top:50px;
+			min-height:100%;
+
+		}
+		.footer {
+			background-color:black;
+			color: white; 
+			height: 200px;
+			position:absolute; bottom:0px;
+		}
+		.footer-ghost { height:200px; }
+		.contact-links{
+			color:white;
+			-webkit-transition: color 0.5s ease-in;
+			-moz-transition: color 0.5s ease-in;
+			-o-transition: color 0.5s ease-in;
+			-ms-transition: color 0.5s ease-in;
+			transition: color 0.5s ease-in;
+		}
+		
+		body,html{
+			overflow-x:hidden; 
+		}
+
+		.slideshow {
+			position: absolute;
+			z-index: 0;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 75vh;
+		}
+		.slideshow .slider {
+			width: 100vw;
+			height: 100vw;
+			z-index: 0;
+		}
+		.slideshow .slider * {
+			outline: none;
+		}
+		.slideshow .slider .item {
+			height: 75vh;
+			width: 100vw;
+			position: relative;
+			overflow: hidden;
+			border: none;
+		}
+		.slideshow .slider .item .text {
+			display: none;
+		}
+		.slideshow .slider .item img {
+			min-width: 100%;
+			min-height: 100%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+		.slideshow.slideshow-right {
+			left: 0;
+			z-index: 0;
+			width: 50vw;
+			pointer-events: none;
+		}
+		.slideshow.slideshow-right .slider {
+			left: 0;
+			position: absolute;
+		}
+
+		.slideshow-text {
+			position: absolute;
+			top: 37.5%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			z-index: 100;
+			font-size: 80px;
+			width: 100vw;
+			text-align: center;
+			color: #fff;
+			font-family: sans-serif;
+			font-weight: 100;
+			pointer-events: none;
+			text-transform: uppercase;
+			letter-spacing: 20px;
+			line-height: 0.8;
+		}
+		@media (max-width: 767px) {
+			.slideshow-text {
+				font-size: 40px;
+			}
+		}
+	</style>
+	
+</head>
+
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" id='main-header' href="/home">ClubName</a>
+			</div>
+			<ul class="nav  navbar-nav navbar-right">
+				{%block navbargenerator%}{%endblock%}
+			</ul>
+		</div>
+	</nav>
+	<script type="text/javascript">
+		var slugurl = '/{%block slugurl%}{%endblock%}';
+		var clubname = '{%block name%}{%endblock%}';
+		$('#main-header').attr('href',slugurl);
+		$('#homelink').attr('href',slugurl);
+		$('#main-header').text(clubname);
+	</script>
+</header>
+
+<body>
+	{% block content %}{% endblock %}
+</body>
+
+<footer class="footer">
+	<div class="container-fluid">
+		<div class="col-xs-4">
+			<h2 class='title'>Want to meet us</h2>
+			<p>
+				<b>Address:</b>
+				<br>
+				New SAC,
+				<br>
+				IIT Guwahati,
+				<br>
+				Guwahati, Assam - 781039.
+			</p>
+		</div>
+		<div class="col-xs-4">
+
+			<h2 class='title'>Let us send you cool stuff!</h2>
+
+			<p>We promise, we will only send you awesome stuff which will make your day!</p>
+
+			<form action='something.php' method='post'>
+				<div class="input-group" style="width:80%">
+					<input class="form-control" name="email" id="email" type="email" placeholder="Email Address">
+					<span class=' input-group-btn'>
+						<button class="btn btn-primary" type="submit">Submit</button>
+					</span>
+				</div>
+			</form>
+		</div>
+		<div class="col-xs-4">
+			<h2 class='title'>Contact us at</h2>
+			<div class="social-icons">
+
+				{%if page.facebook_link%}
+				<a href="{{page.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+				{%endif%}
+				{%if page.twitter_link%}
+				<a href="{{page.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+				{%endif%}
+				{%if page.youtube_link%}
+				<a href="{{page.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+				{%endif%}
+				{%if page.googleplus_link%}
+				<a href="{{page.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+				{%endif%}
+				{%if page.emailaddress%}
+				<a href="mailto:{{page.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+				{%endif%}
+
+			</div>
+		</div>
+	</div>
+</footer>
+</html>

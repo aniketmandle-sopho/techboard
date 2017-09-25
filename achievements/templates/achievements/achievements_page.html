@@ -1,8 +1,22 @@
-{% extends "base.html" %}
+{% extends "clubHomePage/base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-blogpage{% endblock %}
+{% block body_class %}achievmentsindexpage{% endblock %}
+
+{%block slugurl%}{{page.get_parent.get_parent.slug}}{%endblock%}
+{%block name%}{{page.get_parent.get_parent.title}}{%endblock%}
+{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+
+{%for pgc in page.get_parent.get_parent.get_children %}
+{%ifequal pgc.slug page.get_parent.slug%}
+<li class='active'><a href="/{{page.get_parent.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+{%else%}
+<li><a href="/{{page.get_parent.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+{%endifequal%}
+{%endfor%}
+
+{%endblock%}
 
 {% block content %}
     <h1>{{ page.title }}</h1>

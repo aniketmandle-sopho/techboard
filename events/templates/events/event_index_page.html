@@ -5,35 +5,41 @@
 {% block body_class %}template-eventsindexpage{% endblock %}
 
 {%block slugurl%}{{page.get_parent.slug}}{%endblock%}
+
 {%block name%}{{page.get_parent.title}}{%endblock%}
-{%block navbargenerator%}
-{%for pgc in page.get_parent.get_children %}
-<li><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
-{%endfor%}
+
+{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+	{%for pgc in page.get_parent.get_children %}
+		{%ifequal pgc.slug page.slug%}
+			<li class='active'><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+		{%else%}
+			<li><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+		{%endifequal%}
+	{%endfor%}
 {%endblock%}
 
 {% block content %}
-	<h1>{{ page.title }}</h1>
-	{{page.slug}}
-	<div class="intro">{{ page.intro|richtext }}</div>
-	<hr>
-	{% for block in page.event  %}
-		{% if block.block_type == 'evnt' %}
-		{% if block.value.isActive == 1 %}		
-		<h3> {{ block.value.title }} </h3>
-		<p>{{ block.value.intro }}</p>
-		<p>Event Starts At :{{ block.value.start }}</p>
-		<p>Event Ends At :{{ block.value.end }}</p>
-		<p>Location :{{ block.value.venue }}</p>
-		
-		{% else %}		
-		<h3> {{ block.value.title }} </h3>
-		<p> {{ block.value.intro }}</p>
-		<p>Event has Ended.</p>
-		{% endif %}
-		
-		{% endif %}
-		<hr>
-	{% endfor %}
+<h1>{{ page.title }}</h1>
+{{page.slug}}
+<div class="intro">{{ page.intro|richtext }}</div>
+<hr>
+{% for block in page.event  %}
+{% if block.block_type == 'evnt' %}
+{% if block.value.isActive == 1 %}		
+<h3> {{ block.value.title }} </h3>
+<p>{{ block.value.intro }}</p>
+<p>Event Starts At :{{ block.value.start }}</p>
+<p>Event Ends At :{{ block.value.end }}</p>
+<p>Location :{{ block.value.venue }}</p>
+
+{% else %}		
+<h3> {{ block.value.title }} </h3>
+<p> {{ block.value.intro }}</p>
+<p>Event has Ended.</p>
+{% endif %}
+
+{% endif %}
+<hr>
+{% endfor %}
 
 {% endblock %}
