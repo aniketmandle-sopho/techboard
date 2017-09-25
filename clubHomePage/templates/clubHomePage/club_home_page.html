@@ -38,7 +38,7 @@
         {%ifequal forloop.counter0 0%}
         <div class="item active">
             {%image block.value.image original as tmp%}
-            <img src='{{tmp.url}}'  />
+            <img src='{{tmp.url}}' height="400px" />
             <div class="carousel-caption">
               <h3>{{block.value.caption}}</h3>
           </div>
@@ -46,7 +46,7 @@
       {%else%}
       <div class="item"> 
           {%image block.value.image original as tmp%}
-          <img src='{{tmp.url}}'   />
+          <img src='{{tmp.url}}'  height="400px" />
           <div class="carousel-caption">
               <h3>{{block.value.caption}}</h3>
           </div>

@@ -15,17 +15,73 @@
 {%endifequal%}
 {%endfor%}
 {%endblock%}
+{%block customstyles%}
+h1{
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:60px;
+}
+.intro{
+	text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:30px;	
+}
+.images{
+	position:relative;
+}
+.image{
+	max-width:100%;
+	-webkit-filter: blur(0px);
+	filter: blur(0px);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.images:hover>.image{
+	-webkit-filter: blur(3px);
+	filter: blur(3px);
+	z-index:-99;
+}
 
+.message {
+	position:absolute;
+	top:40%;
+    display:inline-block;
+    z-index:-199;
+    color:white;
+    font-size:20px;
+    text-align:center;
+	left:5%;
+    width:90%;
+    background-color:black;
+font-family: 'Asap', sans-serif;
+	padding-top:25px;
+	padding-bottom:25px;
+}
+.images:hover>.message{
+	z-index:99;
+	-webkit-transition:z-index 1s fade;
+	transition:z-index 1s fade;
+
+}
+{%endblock%}
 {% block content %}
-    <h1>{{ page.title }}</h1>
+<br>
+<h1>{{ page.title }}</h1>
 
-    <div class="intro">{{ page.intro|richtext }}</div>
+<div class="intro">{{ page.intro|richtext }}</div>
 
-    {% for post in albums %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        {% image post.specific.cover fill-320x240 %}
-        
-        
-    {% endfor %}
+
+<div class='row'>
+{% for post in albums %}
+<a href='{%pageurl post%}'>
+<div class='col-xs-4 images'>
+{% image post.specific.cover original as tmp %}
+<img src='{{tmp.url}}' class='image'/>
+<p class='message'>{{ post.title }}</p>
+</div>
+</a>
+
+{% endfor %}
+</div>
 
 {% endblock %}
