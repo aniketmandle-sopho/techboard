@@ -60,7 +60,6 @@ class EventIndexPage(Page):
 	intro = RichTextField(max_length=250)
 	event = StreamField([
 		('evnt',Events()),
-
 	])
 	content_panels = Page.content_panels + [
 		FieldPanel('intro'),

@@ -17,10 +17,26 @@
 		{%endifequal%}
 	{%endfor%}
 {%endblock%}
+{%block customstyles%}
+h1{
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:60px;
+}
+.intro{
+margin-left:20px;
+margin-right:20px;
+text-align: justify;
+    -moz-text-align-last: center;
+    text-align-last: center;
+font-family: 'Asap', sans-serif;
+font-size:30px;	
+}
+{%endblock%}
 
 {% block content %}
+<br>
 <h1>{{ page.title }}</h1>
-{{page.slug}}
 <div class="intro">{{ page.intro|richtext }}</div>
 <hr>
 {% for block in page.event  %}

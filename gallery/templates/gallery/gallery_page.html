@@ -22,7 +22,11 @@ font-family: 'Asap', sans-serif;
 font-size:60px;
 }
 .intro{
-	text-align:center;
+margin-left:20px;
+margin-right:20px;
+text-align: justify;
+    -moz-text-align-last: center;
+    text-align-last: center;
 font-family: 'Asap', sans-serif;
 font-size:30px;	
 }
@@ -31,6 +35,7 @@ font-size:30px;
 }
 .image{
 	max-width:100%;
+	border:2px solid black;
 	-webkit-filter: blur(0px);
 	filter: blur(0px);
 	-webkit-transition: .3s ease-in-out;
@@ -45,23 +50,27 @@ font-size:30px;
 .message {
 	position:absolute;
 	top:40%;
-    display:inline-block;
-    z-index:-199;
+    display:none;;
+	display:inline-block;
+	opacity:0;
     color:white;
     font-size:20px;
     text-align:center;
-	left:5%;
-    width:90%;
+	left:3%;
+    width:94%;
     background-color:black;
 font-family: 'Asap', sans-serif;
 	padding-top:25px;
 	padding-bottom:25px;
 }
 .images:hover>.message{
-	z-index:99;
-	-webkit-transition:z-index 1s fade;
-	transition:z-index 1s fade;
+opacity:1;
+	-webkit-transition:opacity 1	s ease-in-out;
+	transition:opacity 1s ease-in-out;
 
+}
+#photosrow{
+	margin:5px;
 }
 {%endblock%}
 {% block content %}
@@ -71,7 +80,7 @@ font-family: 'Asap', sans-serif;
 <div class="intro">{{ page.intro|richtext }}</div>
 
 
-<div class='row'>
+<div class='row' id='photosrow'>
 {% for post in albums %}
 <a href='{%pageurl post%}'>
 <div class='col-xs-4 images'>
@@ -83,5 +92,5 @@ font-family: 'Asap', sans-serif;
 
 {% endfor %}
 </div>
-
+<br>
 {% endblock %}

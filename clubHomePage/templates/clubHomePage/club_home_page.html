@@ -15,7 +15,7 @@
 
 <div class="container">
   <h2>Carousel Example</h2>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="position:relative;">
     <ol class="carousel-indicators">
         {% for block in page.slideshow %}
         {% if block.block_type == 'Image' %}
@@ -38,7 +38,7 @@
         {%ifequal forloop.counter0 0%}
         <div class="item active">
             {%image block.value.image original as tmp%}
-            <img src='{{tmp.url}}' height="400px" />
+            <img src='{{tmp.url}}' style='width:100%' />
             <div class="carousel-caption">
               <h3>{{block.value.caption}}</h3>
           </div>
@@ -46,7 +46,7 @@
       {%else%}
       <div class="item"> 
           {%image block.value.image original as tmp%}
-          <img src='{{tmp.url}}'  height="400px" />
+          <img src='{{tmp.url}}'  style='width:100%' />
           <div class="carousel-caption">
               <h3>{{block.value.caption}}</h3>
           </div>
