@@ -7,15 +7,16 @@
 {%block slugurl%}{{page.get_parent.slug}}{%endblock%}
 
 {%block name%}{{page.get_parent.title}}{%endblock%}
+{%block title%}Events - {{page.get_parent.title}}{%endblock%}
 
 {%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
-	{%for pgc in page.get_parent.get_children %}
-		{%ifequal pgc.slug page.slug%}
-			<li class='active'><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
-		{%else%}
-			<li><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
-		{%endifequal%}
-	{%endfor%}
+{%for pgc in page.get_parent.get_children %}
+{%ifequal pgc.slug page.slug%}
+<li class='active'><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+{%else%}
+<li><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+{%endifequal%}
+{%endfor%}
 {%endblock%}
 {%block customstyles%}
 h1{
@@ -27,10 +28,62 @@ font-size:60px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
-    -moz-text-align-last: center;
-    text-align-last: center;
+-moz-text-align-last: center;
+text-align-last: center;
 font-family: 'Asap', sans-serif;
 font-size:30px;	
+}
+.heading{
+	text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:40px;
+}
+.eventrow{
+	margin:5px;
+}
+
+.activeevent{
+	position:relative;
+	padding:0px;
+	border:1px solid black;
+	border-radius:5px;
+}
+.inactiveevent{
+	position:relative;
+	padding:0px;
+	border:1px solid #6a7e85;
+	border-radius:5px;
+}
+.activehead{
+	font-size:30px;
+	text-align:center;
+	font-family: 'Raleway', sans-serif;
+	padding:10px;
+	margin-top:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:black;
+	color:white;
+}
+.inactivehead{
+	font-size:30px;
+	text-align:center;
+	font-family: 'Raleway', sans-serif;
+	padding:10px;
+	margin-top:0px;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#6a7e85;
+	color:white;
+}
+.info, .intro2{
+padding-left:10px;
+padding-right:10px;
+font-size:18px;
+	font-family: 'Raleway', sans-serif;
+	text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
 }
 {%endblock%}
 
@@ -38,24 +91,35 @@ font-size:30px;
 <br>
 <h1>{{ page.title }}</h1>
 <div class="intro">{{ page.intro|richtext }}</div>
-<hr>
-{% for block in page.event  %}
-{% if block.block_type == 'evnt' %}
-{% if block.value.isActive == 1 %}		
-<h3> {{ block.value.title }} </h3>
-<p>{{ block.value.intro }}</p>
-<p>Event Starts At :{{ block.value.start }}</p>
-<p>Event Ends At :{{ block.value.end }}</p>
-<p>Location :{{ block.value.venue }}</p>
 
-{% else %}		
-<h3> {{ block.value.title }} </h3>
-<p> {{ block.value.intro }}</p>
-<p>Event has Ended.</p>
-{% endif %}
+<h2 class="heading" >Upcoming/Ongoing Events</h2>
 
-{% endif %}
-<hr>
+<div class="row eventrow">
+	{% for item in active_events  %}	
+		<div class="col-xs-4 events">
+			<div class="col-md-12 activeevent">
+				<h3 class="activehead"> {{ item.title }} </h3>
+				<div class='intro2'>{{ item.intro|richtext }} </div>
+				<p class="info">Event Starts At :{{ item.start }}<br>
+				Event Ends At :{{ item.end }}<br>
+				Location :{{ item.venue }}
+				</p>
+		     </div>
+		</div>
+	{% endfor %}
+</div>
+
+<h2 class="heading" style="color: #6a7e85;" >Past Events</h2>
+<div class="row eventrow">
+{% for item in inactive_events  %}		
+<div class="col-xs-4 events">
+			<div class="col-md-12 inactiveevent">
+<h3 class="inactivehead"> {{ item.title }} </h3>
+<div class='intro2'>{{ item.intro | richtext }}</div>
+<p class="info"> Event Ended On: {{item.end.date}}</p>
+</div>
+</div>
 {% endfor %}
-
+</div>
+<br>
 {% endblock %}

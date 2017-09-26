@@ -6,9 +6,9 @@ from django.db import models
 from wagtail.wagtailsnippets.models import register_snippet
 
 # Create your models here.
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailsearch import index
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
@@ -20,7 +20,7 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
-
+from django.db.models import Q
 	
 # @register_snippet
 # class EventLocation(models.Model):
@@ -46,22 +46,40 @@ from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 #         else:
 #             return value
 
-class Events(blocks.StructBlock):
-	title = blocks.CharBlock()
-	intro = blocks.RichTextBlock()
-	start = blocks.DateTimeBlock()
-	end = blocks.DateTimeBlock()
-#	location = ParentalManyToManyField('events.EventLocation',blank=True)
-	venue = blocks.CharBlock()
-	isActive = blocks.BooleanBlock(required=False)
-
-
 class EventIndexPage(Page):
 	intro = RichTextField(max_length=250)
-	event = StreamField([
-		('evnt',Events()),
-	])
+	def get_context(self, request):
+		# Update context to include only published posts, ordered by reverse-chron
+		context = super(EventIndexPage, self).get_context(request)
+		active_events = Events.objects.filter(Q(page=self)&Q(IsActive=1)).order_by('start')
+		context['active_events'] = active_events
+		inactive_events = Events.objects.filter(Q(page=self)&Q(IsActive=0)).order_by('-end')
+		context['inactive_events'] = inactive_events
+		return context
+
+
 	content_panels = Page.content_panels + [
 		FieldPanel('intro'),
-		StreamFieldPanel('event'),
+		InlinePanel('events', label="Event"),
 	]
+
+class Events(Orderable):
+	page = ParentalKey(EventIndexPage, related_name='events')
+	title = models.CharField(max_length=200)
+	intro = RichTextField()
+	start = models.DateTimeField("Start")
+	end = models.DateTimeField("end")
+	venue = models.CharField(max_length=200)
+	IsActive = models.BooleanField(blank=True,default=True)
+
+#	location = ParentalManyToManyField('events.EventLocation',blank=True)
+	panels = [
+		FieldPanel('IsActive'),
+		FieldPanel('title'),
+        FieldPanel('intro'),
+        MultiFieldPanel([
+	        FieldPanel('start'),
+	        FieldPanel('end'),
+	        FieldPanel('venue'),
+    	],heading='Details Of Event')
+    ]

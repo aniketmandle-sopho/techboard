@@ -3,7 +3,7 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
 {% block body_class %}template-eventsindexpage{% endblock %}
-
+{%block title%}Album - {{page.get_parent.get_parent.title}}{%endblock%}
 {%block slugurl%}{{page.get_parent.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.get_parent.title}}{%endblock%}
 {%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
