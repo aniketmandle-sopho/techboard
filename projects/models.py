@@ -30,15 +30,22 @@ class ProjectsPage(Page):
 
 class Projects(Page):
     start = models.DateField("startdate")
-    end = models.DateField("enddate")
+    end = models.DateField("enddate",blank=True,null=True)
 
     body = StreamField([
         ('Descrip', blocks.RichTextBlock()),
         ('Images', ImageChooserBlock()),
-        ('Link', blocks.URLBlock()),
+        ('Link', blocks.StructBlock(
+            [
+                ('URL', blocks.URLBlock()),
+                
+                ('Text', blocks.CharBlock()),
+            ],
+            icon='site',
+        )),
         ('Documents',DocumentChooserBlock()),
         ('video',EmbedBlock()),
-        ('Gist',blocks.RichTextBlock()),
+        ('Gist',blocks.TextBlock()),
     ])
 
     content_panels = Page.content_panels + [

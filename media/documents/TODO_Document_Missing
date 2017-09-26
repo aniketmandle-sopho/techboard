@@ -1,0 +1,65 @@
+TODO Document Missing!!!
+Did we not discuss about reducing no. of apps? Why are we not implementing that?
+App "home" is basically empty
+Do we need a separate app for "search"?
+App "gallery"
+    Cant we simply remove admin.py, tests.py, views.py? They dont have any code which makes sense.
+    models.py
+        import cleanup - please check pep8.org for the correct way to do this
+        Empty Lines 22,23,39,48 are not necessary(consistency with rem apps)
+        A empty line after line 35,51 is necessary(consistency with module)
+App "projects"
+    Cant we simply remove admin.py, tests.py, views.py? They dont have any code which makes sense.
+    models.py
+        import cleanup - please check pep8.org for the correct way to do this
+        Empty Lines 32,33,37,44,48 are not necessary(consistency with rem apps)
+        A empty line after line 28,34,35 is necessary(consistency with module)
+        Lines 38-43 
+            Why are some blocks imported, and remaining referenced as blocks.X?
+App "story" (self note : need to discuss this app in detail)
+    remove admin.py, tests.py, views.py?
+    models.py
+        import cleanup
+        No lines between variables, methods etc. This is inconsistent with the style of "projects" and "gallery". Either change this, or that, but things consistent. My suggestion is to change this to the style of "projects", because that style is more readable. 
+        Line 48 - is that going to be the final help_text???
+        Feature suggestion - if there is no author, the "story" post will be considered to be authored by "X Club" instead of "Anyonymous"
+        Empty Lines 56 are not necessary(consistency with rem apps)
+App "users" (self note : need to discuss this app in detail)
+    remove tests.py and views.py. Note : admin.py is necessary here. 
+    models.py
+        import cleanup
+        Line 37 - can change "dp" to "display_picture". 
+            https://ux.stackexchange.com/questions/63489/avatar-vs-profile-picture-vs-display-picture 
+            Also, dp vs display_picture matters because of python philosophy "explicit over implicit"
+        Also suggest "roll_no" and "mobile_no" over current variable names - its just more readable
+        IMPORTANT : "phoneno" - https://stackoverflow.com/a/19131360
+        Why are "bio" and "location" commented? Are we going to add them later or something?
+        ...
+        ...
+        ...
+App "events"
+    remove admin.py, tests.py, views.py?
+    models.py
+        import cleanup
+        Feature suggestion - "venue" should be a enum. If you don't know what a enum is, please ask me.
+        "isActive" is in camel case. Please change it to "is_active" to be consistent with PEP8
+        Empty Lines 37 can be removed.
+App "achievements"
+    remove admin.py, tests.py, views.py?
+    models.py
+        WOW. imports are already clean. 
+        Add a empty line after line 40
+        ...
+        ...
+        ...
+App "clubeHomePage"
+    CAMEL CASE... NOOO...
+    ...
+    ...
+    ...
+App "techome"
+    "techome" - really?!?
+    ...
+    ...
+    ...
+Self Note : Cross-Check features with sprint starting doc.

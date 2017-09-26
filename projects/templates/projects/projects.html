@@ -1,11 +1,12 @@
 {% extends "clubHomePage/base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
 {% block body_class %}template-eventsindexpage{% endblock %}
 
 {%block slugurl%}{{page.get_parent.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.get_parent.title}}{%endblock%}
+{%block title%}Project - {{page.get_parent.get_parent.title}}{%endblock%}
 {%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_parent.get_children %}
 {%ifequal pgc.slug page.get_parent.slug%}
@@ -16,21 +17,102 @@
 {%endfor%}
 
 {%endblock%}
+{%block customstyles%}
+h1{
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:60px;
+}
+.intro{
+margin-left:20px;
+margin-right:20px;
+text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+font-family: 'Asap', sans-serif;
+font-size:30px;	
+}
+.heading{
+	text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:40px;
+}
+.eventrow{
+	margin:5px;
+}
 
+.info, .intro2{
+padding-left:10px;
+padding-right:10px;
+font-size:18px;
+	font-family: 'Raleway', sans-serif;
+	text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+}
+.gist-meta{
+	display:none;
+}
+.blob-num, .js-line-number{
+	display:none;
+}
+.gist{
+margin:10px;
+	border-left:2px solid orange;
+}
+.gist-file, .gist-data{
+	border-bottom:none;
+	border-top:none;
+	border-right:none;
+}
+.descrip{
+	margin:20px;
+	font-size:18px;
+}
+.images{
+margin:20px;
+
+}
+.image{
+display:block;
+max-width:100%;
+border:2px solid black;
+width:100%;
+}
+.photorow{
+position:relative;
+	width:100%;
+}
+.document, .link{
+	margin:20px;
+	font-size:18px;
+	font-family: 'Asap', sans-serif;
+}
+
+{%endblock%}
 {% block content %}
+<br>
     <h1>{{ page.title }}</h1>
-    <h4>{{ page.start}} - </h4> <h4>{{ page.end}}</h4>
-    
+    <h4 class="intro">{{ page.start}} - {%if page.end%}{{page.end}}{%else%}Ongoing{%endif%}</h4>
     
     {% for block in page.body %}
-        <section>{% include_block block%}</section>
+    {%if block.block_type == 'Gist'%}
+	{%autoescape off%}{{ block.value }}{%endautoescape%}
+	{%elif block.block_type == 'Images'%}
+			<div class="row photorow"><div class='col-xs-12 images'>
+            {%image block.value original as tmp%}<img src='{{tmp.url}}' class='image'/>
+            </div></div>
+	{%elif block.block_type == 'Descrip'%}
+	<div class="descrip">{{ block.value|richtext}}</div>
+	{%elif block.block_type == 'Link'%}
+	<div class="link"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
+	{%elif block.block_type == 'video'%}
+	<div class="embed-responsive embed-responsive-16by9" style="margin:20px">
+    {%embed block.value.url%}
+     </div>
+	{%elif block.block_type == 'Documents'%}
+	<div class="document"> Download File : {%autoescape off%}{{ block }}{%endautoescape%} <i class="fa fa-download" aria-hidden="true" style="color:#4c7eb7;"></i> </div>
+	{%endif%}
     {% endfor %}
-
-   {% for post in page.get_children %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        
-        {{ post.specific.body|richtext }}
-    {% endfor %}
-
-
+<br>
 {% endblock %}

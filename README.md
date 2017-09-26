@@ -12,7 +12,7 @@ TODO's
 	- [x] Events
 	- [x] Gallery
 	- [ ] Story
-	- [ ] Projects
+	- [ ] Projects(1/2way)
 	- [ ] achivements
 
 - [ ] nginx
@@ -20,3 +20,4 @@ TODO's
 - [ ] Categories -> SubCategories
 - [ ] Event Read More btn
 - [ ] Album Click To Full Screen
+- [ ] Search an alternative for gist it is slow
