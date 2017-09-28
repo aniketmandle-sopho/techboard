@@ -33,17 +33,16 @@ class AchievementsIndexPage(Page):
     ]
 
     def get_context(self, request):
-        # Update context to include only published posts, ordered by reverse-chron
         context = super(AchievementsIndexPage, self).get_context(request)
-        blogpages = self.get_children().live().order_by('-first_published_at')
-        context['blogpages'] = blogpages
+        achievement = self.get_children().live().order_by('-first_published_at')
+        context['achievement'] = achievement
         return context
     subpage_types = ['achievements.AchievementsPage']
 
 class AchievementsPage(Page):
     date = models.DateField("Post date")
-    competition_intro = RichTextField("About the Achievement")
-    description = RichTextField("Descriptopn")
+    competition_intro = models.CharField("About the Achievement",max_length=600)
+    description = RichTextField("Decription")
 
     carousel = StreamField([
         ('image', ImageChooserBlock()),

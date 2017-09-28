@@ -6,6 +6,7 @@
 
 {%block slugurl%}{{page.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.title}}{%endblock%}
+{%block title%}Achievements - {{page.get_parent.title}}{%endblock%}
 {%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_children %}
 {%ifequal pgc.slug page.slug%}
@@ -15,19 +16,77 @@
 {%endifequal%}
 {%endfor%}
 {%endblock%}
+{%block customstyles%}
+h1{
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:60px;
+}
+.intro{
+margin-left:20px;
+margin-right:20px;
+text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+font-family: 'Asap', sans-serif;
+font-size:30px; 
+}
+.heading{
+    text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:40px;
+}
+.projectrow{
+    margin:5px;
+}
+
+.project{
+    position:relative;
+    padding:0px;
+    border:1px solid black;
+    border-radius:5px;
+}
+
+.projecttitle{
+    font-size:30px;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    padding:10px;
+    margin-top:0px;
+    margin-left:0px;
+    margin-right:0px;
+    background-color:black;
+    color:white;
+}
+
+.info{
+padding-left:10px;
+padding-right:10px;
+font-size:18px;
+    font-family: 'Raleway', sans-serif;
+    text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+}
+{%endblock%}
 
 {% block content %}
+<br>
     <h1>{{ page.title }}</h1>
-
     <div class="intro">{{ page.intro|richtext }}</div>
-    <div class="carousel">{{page.carousel}}</div>
-
-    {% for post in blogpages %}
-        {% with post=post.specific %}
-            <hr />
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-            {{ post.specific.competition_intro|richtext }}
-        {% endwith %}
-    {% endfor %}
+    <br>
+    <div class="row projectrow">
+{% for post in achievement  %}    
+<div class="col-xs-4">
+<div class="col-md-12 project">
+{%with post.specific as item%}
+<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="projecttitle"> {{ item.title }} </h3></a>
+<p class="info">{{ item.date }}<br>
+{{item.competition_intro}}</p>
+{%endwith%}
+</div>
+</div>
+{% endfor %}
+</div>
 
 {% endblock %}

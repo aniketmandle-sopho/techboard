@@ -21,3 +21,4 @@ TODO's
 - [ ] Event, Projects Read More btn
 - [ ] Album Click To Full Screen
 - [ ] Search an alternative for gist it is slow
+- [ ] Projects Page Sort by end date.
