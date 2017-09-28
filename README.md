@@ -12,13 +12,15 @@ TODO's
 	- [x] Events
 	- [x] Gallery
 	- [x] Projects
-	- [ ] Story
-	- [ ] achivements
+	- [x] Story
+	- [x] achivements
 
 - [ ] nginx
 - [ ] Shift To MariaDB
 - [ ] Categories -> SubCategories
-- [ ] Event, Projects Read More btn
+- [ ] Event, Projects, Stories Read More btn
 - [ ] Album Click To Full Screen
 - [ ] Search an alternative for gist it is slow
 - [ ] Projects Page Sort by end date.
+- [ ] For Long Quotes Gets distorted.
+- [ ] Appropriate Font Size

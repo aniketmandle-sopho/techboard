@@ -92,28 +92,28 @@ position:relative;
 
 {%endblock%}
 {% block content %}
-<br>
+	<br>
     <h1>{{ page.title }}</h1>
     <h4 class="intro">{{ page.start}} - {%if page.end%}{{page.end}}{%else%}Ongoing{%endif%}</h4>
     <h3 class="introduction">{{page.intro}}</h3>
     {% for block in page.body %}
-    {%if block.block_type == 'Gist'%}
-	{%autoescape off%}{{ block.value }}{%endautoescape%}
-	{%elif block.block_type == 'Images'%}
+    	{%if block.block_type == 'Gist'%}
+			{%autoescape off%}{{ block.value }}{%endautoescape%}
+		{%elif block.block_type == 'Images'%}
 			<div class="row photorow"><div class='col-xs-12 images'>
-            {%image block.value original as tmp%}<img src='{{tmp.url}}' class='image'/>
+        	    {%image block.value original as tmp%}<img src='{{tmp.url}}' class='image'/>
             </div></div>
-	{%elif block.block_type == 'Descrip'%}
-	<div class="descrip">{{ block.value|richtext}}</div>
-	{%elif block.block_type == 'Link'%}
-	<div class="link"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
-	{%elif block.block_type == 'video'%}
-	<div class="embed-responsive embed-responsive-16by9" style="margin:20px">
-    {%embed block.value.url%}
-     </div>
-	{%elif block.block_type == 'Documents'%}
-	<div class="document"> Download File : {%autoescape off%}{{ block }}{%endautoescape%} <i class="fa fa-download" aria-hidden="true" style="color:#4c7eb7;"></i> </div>
-	{%endif%}
+		{%elif block.block_type == 'Descrip'%}
+			<div class="descrip">{{ block.value|richtext}}</div>
+		{%elif block.block_type == 'Link'%}
+			<div class="link"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
+		{%elif block.block_type == 'video'%}
+			<div class="embed-responsive embed-responsive-16by9" style="margin:20px">
+    			{%embed block.value.url%}
+     		</div>
+		{%elif block.block_type == 'Documents'%}
+			<div class="document"> Download File : {%autoescape off%}{{ block }}{%endautoescape%} <i class="fa fa-download" aria-hidden="true" style="color:#4c7eb7;"></i> </div>
+		{%endif%}
     {% endfor %}
-<br>
+	<br>
 {% endblock %}

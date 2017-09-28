@@ -62,6 +62,6 @@ class clubHomePage(Page):
 		FieldPanel('AboutUs'),
 		FieldPanel('Vision'),
 	]
-	subpage_types = ['achievements.AchievementsIndexPage','gallery.GalleryPage','projects.ProjectsPage','story.StoryIndexPage','events.EventIndexPage','users.UserPage']
+	subpage_types = ['achievements.AchievementsIndexPage','gallery.GalleryPage','projects.ProjectsPage','story.StoryIndexPage','story.StoryTagIndexPage','events.EventIndexPage','users.UserPage']
 
 

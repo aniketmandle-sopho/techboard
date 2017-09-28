@@ -60,8 +60,21 @@ class StoryPage(Page):
 		    icon='image',
 		)),
 		('gist', blocks.TextBlock(help_text="Go to gist.github.com to write code and copy the embed Link.")),
-        ('link', blocks.URLBlock()),
-        ('quote',blocks.BlockQuoteBlock()),
+        ('Link', blocks.StructBlock(
+            [
+                ('URL', blocks.URLBlock()),
+                
+                ('Text', blocks.CharBlock()),
+            ],
+            icon='site',
+        )),
+        ('Quote',blocks.StructBlock(
+            [
+                ('quote',blocks.BlockQuoteBlock()),
+                ('Author',blocks.TextBlock(max_length=50)),
+            ],
+            icon='quote'
+        )),
         ('embed',EmbedBlock()),
     ])
     
