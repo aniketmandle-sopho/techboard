@@ -15,7 +15,7 @@ TODO's
 	- [x] Story
 	- [x] achivements
 
-- [ ] nginx
+- [x] nginx
 - [ ] Shift To MariaDB
 - [ ] Categories -> SubCategories
 - [ ] Event, Projects, Stories Read More btn
@@ -24,3 +24,7 @@ TODO's
 - [ ] Projects Page Sort by end date.
 - [ ] For Long Quotes Gets distorted.
 - [ ] Appropriate Font Size
+- [ ] All apps importing from a single models.py folder
+- [ ] each team member profile page
+- [ ] DISCLAIMERS on streamfields on how to use them
+- [ ] user powers , club members and club admins
