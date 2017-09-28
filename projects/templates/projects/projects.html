@@ -6,7 +6,7 @@
 
 {%block slugurl%}{{page.get_parent.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.get_parent.title}}{%endblock%}
-{%block title%}Project - {{page.get_parent.get_parent.title}}{%endblock%}
+{%block title%}{{page.title}} - {{page.get_parent.get_parent.title}}{%endblock%}
 {%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_parent.get_children %}
 {%ifequal pgc.slug page.get_parent.slug%}
@@ -65,8 +65,9 @@ margin:10px;
 	border-top:none;
 	border-right:none;
 }
-.descrip{
+.descrip, .introduction{
 	margin:20px;
+	font-family:'Raleway',sans-serif;
 	font-size:18px;
 }
 .images{
@@ -94,7 +95,7 @@ position:relative;
 <br>
     <h1>{{ page.title }}</h1>
     <h4 class="intro">{{ page.start}} - {%if page.end%}{{page.end}}{%else%}Ongoing{%endif%}</h4>
-    
+    <h3 class="introduction">{{page.intro}}</h3>
     {% for block in page.body %}
     {%if block.block_type == 'Gist'%}
 	{%autoescape off%}{{ block.value }}{%endautoescape%}

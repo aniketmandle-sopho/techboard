@@ -1,11 +1,9 @@
 {% extends "clubHomePage/base.html" %}
-
 {% load wagtailcore_tags wagtailimages_tags %}
-
 {% block body_class %}template-eventsindexpage{% endblock %}
-
 {%block slugurl%}{{page.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.title}}{%endblock%}
+{%block title%}Projects - {{page.get_parent.title}}{%endblock%}
 {%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_children %}
 {%ifequal pgc.slug page.slug%}
@@ -15,28 +13,99 @@
 {%endifequal%}
 {%endfor%}
 {%endblock%}
+{%block customstyles%}
+h1{
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:60px;
+}
+.intro{
+margin-left:20px;
+margin-right:20px;
+text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+font-family: 'Asap', sans-serif;
+font-size:30px; 
+}
+.heading{
+    text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:40px;
+}
+.projectrow{
+    margin:5px;
+}
 
+.project{
+    position:relative;
+    padding:0px;
+    border:1px solid black;
+    border-radius:5px;
+}
+
+.projecttitle{
+    font-size:30px;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    padding:10px;
+    margin-top:0px;
+    margin-left:0px;
+    margin-right:0px;
+    background-color:black;
+    color:white;
+}
+
+.info, .intro2{
+padding-left:10px;
+padding-right:10px;
+font-size:18px;
+    font-family: 'Raleway', sans-serif;
+    text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+}
+{%endblock%}
 
 {% block content %}
+<br>
     <h1>{{ page.title }}</h1>
-
     <div class="intro">{{ page.intro|richtext }}</div>
 
 
+<div class="row projectrow">
+{% for post in projects  %}    
+<div class="col-xs-4">
+<div class="col-md-12 project">
+{%with post.specific as item%}
+<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="projecttitle"> {{ item.title }} </h3></a>
+<p class="info">{{ item.start }} - {%if item.end%}{{ item.end }}{%else%}Ongoing{%endif%}<br>
+{{item.intro}}</p>
+{%endwith%}
+</div>
+</div>
+{% endfor %}
+</div>
 
 
-    {% for post in projects%}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
 
-        {{ post.specific.start }}{{ post.specific.end }}
-        {{ post.specific.intro }}
-        
-        {% for block in post.specific.body %}
-        {%  if block.block_type == 'Descrip' %}
-        {% include_block block %} 
-        {% endif %}
-    	{% endfor %}
-    {% endfor %}
-
-    
+    <br>
 {% endblock %}
+
+<br>
+<h1>{{ page.title }}</h1>
+<div class="intro">{{ page.intro|richtext }}</div>
+
+<h2 class="heading" style="color: #6a7e85;" >Past Events</h2>
+<div class="row eventrow">
+{% for item in inactive_events  %}      
+<div class="col-xs-4 events">
+<div class="col-md-12 inactiveevent">
+<h3 class="inactivehead"> {{ item.title }} </h3>
+<div class='intro2'>{{ item.intro | richtext }}</div>
+<p class="info"> Event Ended On: {{item.end.date}}</p>
+</div>
+</div>
+{% endfor %}
+</div>
+<br>

@@ -11,13 +11,13 @@ TODO's
 	- [ ] Team Page
 	- [x] Events
 	- [x] Gallery
+	- [x] Projects
 	- [ ] Story
-	- [ ] Projects(1/2way)
 	- [ ] achivements
 
 - [ ] nginx
 - [ ] Shift To MariaDB
 - [ ] Categories -> SubCategories
-- [ ] Event Read More btn
+- [ ] Event, Projects Read More btn
 - [ ] Album Click To Full Screen
 - [ ] Search an alternative for gist it is slow

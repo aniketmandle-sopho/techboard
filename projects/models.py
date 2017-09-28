@@ -7,7 +7,7 @@ from django.db import models
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField,StreamField
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
@@ -30,8 +30,8 @@ class ProjectsPage(Page):
 
 class Projects(Page):
     start = models.DateField("startdate")
-    end = models.DateField("enddate",blank=True,null=True)
-
+    end = models.DateField("enddate",help_text="If ongoing leave blank.",blank=True,null=True)
+    intro = models.CharField(help_text="This is the context which will be in Main Projects Page",max_length=600)
     body = StreamField([
         ('Descrip', blocks.RichTextBlock()),
         ('Images', ImageChooserBlock()),
@@ -49,7 +49,10 @@ class Projects(Page):
     ])
 
     content_panels = Page.content_panels + [
-    	FieldPanel('start'),
-        FieldPanel('end'),
+        FieldPanel('intro'),
+        MultiFieldPanel([
+            FieldPanel('start'),
+            FieldPanel('end'),
+        ],heading='Dates Of Project'),
         StreamFieldPanel('body'),
     ]
