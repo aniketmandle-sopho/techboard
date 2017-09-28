@@ -18,27 +18,25 @@
 {%endblock%}
 
 {%block customstyles%}
-h1{
+.marginset, .gist{
     margin:20px;
     margin-left:18.3%;
     margin-right:18.3%;
+}
+
+h1{
     text-align:center;
     font-family: 'Asap', sans-serif;
     font-size:60px;
 }
 
 .post-details{
-    margin:20px;
-    margin-left:18.3%;
-    margin-right:18.3%;
     text-align:center;
     font-size:20px;
     font-family:'Raleway',sans-serif;
 }
 
 .intro{
-    margin-left:250px;
-    margin-right:250px;
     text-align: justify;
     -moz-text-align-last: center;
     text-align-last: center;
@@ -47,126 +45,91 @@ h1{
 }
 
 .heading{
-    margin:20px;
-    margin-left:250px;
-    margin-right:250px;
     text-align:center;
     font-family: 'Asap', sans-serif;
     font-size:40px;
 }
-.eventrow{
-    margin:5px;
-}
-
-.info, .intro2{
-padding-left:10px;
-padding-right:10px;
-font-size:18px;
-    font-family: 'Raleway', sans-serif;
-    text-align: justify;
--moz-text-align-last: center;
-text-align-last: center;
-}
 .descrip{
-    margin:20px;
-    margin-left:250px;
-    margin-right:250px;
     font-family:'Raleway',sans-serif;
     font-size:18px;
      text-align: justify;
 }
-
-
 .photorow{
-    margin-left:18.3%;
-    margin-right:18.3%;
     position:relative;
     width:63.4%;
 }
 .image{
-display:block;
-max-width:100%;
-border:2px solid black;
+    display:block;
+    max-width:100%;
+    border:2px solid #d9fce3;
 width:100%;
 }
+.caption{
+    font-family: 'Asap', sans-serif;
+    background-color:#d9fce3;    
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size:17px;
+    color:black;
+    padding:10px;
+    text-align:center;
+}
 .link{
-    margin:20px;
-    margin-left:18.3%;
-    margin-right:18.3%;
     font-size:18px;
     font-family: 'Asap', sans-serif;
 }
 .quote{
-padding-top:20px;
-padding-bottom:20px;
+    padding-top:20px;
+    padding-bottom:20px;
     background-color:#d9fce3;
     color:black;
-    font-family:abc;
+    font-family:'Raleway',sans-serif;
     text-align:center;
     font-size:30px;
 }
-.quote-text{
-    margin:20px;
-    margin-left:18.3%;
-    margin-right:18.3%;
-}
-.gist{
-    margin:20px;
-    margin-left:250px;
-    margin-right:250px;
-}
-.caption{
-    font-family: 'Asap', sans-serif;
-    background-color:black;    
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    font-size:17px;
-    color:white;
-    padding:10px;
-    text-align:center;
-}
-
 {%endblock%}
 
 {% block content %}
     <br>
     <!--Title-->
-    <h1>{{ page.title}}</h1>
+    <h1 class="marginset">{{ page.title}}</h1>
     <!--Title-->
     <!--Details-->
-    <p class="post-details"><b>Posted By</b> : {{ page.author }}<br><b>Posted On</b> : {{ page.date }}<br><b>Posted In</b> :
+    <p class="post-details marginset"><b>Posted By</b> : {{ page.author }}<br><b>Posted On</b> : {{ page.date }}<br><b>Posted In</b> :
         {% with categories=page.categories.all %}{% if categories %}{% for category in categories %}
             {% image category.icon fill-28x28 style="vertical-align: middle" %}
             {{ category.name }}
             &nbsp;
         {% endfor %}{% endif %}{% endwith %}
     </p>
-    <div class="intro">{{ page.intro }}</div>
+    <div class="intro marginset">{{ page.intro }}</div>
     {% for block in page.body %}
         {%if block.block_type == 'gist' %}
             {%autoescape off%}{{ block.value }}{%endautoescape%}
 
 
         {%elif block.block_type == 'images'%}
-            <div class="row photorow"><div class='col-xs-12 images'>
+            <div class="row photorow marginset">
                 <div class="caption">{{block.value.caption}}</div>
                 {%image block.value.image original as tmp%}<img src='{{tmp.url}}' class='image'/>
-            </div></div>
+            </div>
 
         {%elif block.block_type == 'paragraph'%}
-            <div class="descrip">{{ block.value|richtext}}</div>
+            <div class="descrip marginset">{{ block.value|richtext}}</div>
 
         {%elif block.block_type == 'Link'%}
-            <div class="link"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
+            <div class="link marginset"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
 
         {%elif block.block_type == 'embed'%}
-            <div class="embed-responsive embed-responsive-16by9" style="margin:20px">
+        <div class="marginset">
+            <div class="embed-responsive embed-responsive-16by9">
                 {%embed block.value.url%}
+            </div>
             </div>
 
         {%elif block.block_type == 'Quote' %}
         <div class='quote'>
-        <p class="quote-text">
+        <p class="quote-text marginset">
         {{block.value.quote}}
         <br>
         <span style="font-size:20px;">-{{block.value.Author}}<span>
@@ -174,7 +137,7 @@ padding-bottom:20px;
         </div>
 
         {%elif block.block_type == 'heading' %}
-        <h3 class="heading">{{block.value}}</h3>
+        <h3 class="heading marginset">{{block.value}}</h3>
     {% endif %}
     {% endfor %}    
 
@@ -183,7 +146,7 @@ padding-bottom:20px;
 
 <!--Tags-->
     {% if page.tags.all.count %}
-        <div class="tags" style="margin:20px;"><h3 style="display:inline; font-family:'Raleway', sans-serif;">Tags <i class="fa fa-tags" style="color:#337ab7" aria-hidden="true"> &nbsp;:</i> </h3>
+        <div class="tags marginset"><h3 style="display:inline; font-family:'Raleway', sans-serif;">Tags <i class="fa fa-tags" style="color:#337ab7" aria-hidden="true"> &nbsp;:</i> </h3>
             &nbsp;
             {% for tag in page.tags.all %}
                 <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="btn btn-primary ">{{ tag }}</a>
