@@ -55,7 +55,7 @@ class StoryPage(Page):
 		    [
 		        ('image', ImageChooserBlock()),
 		        
-		        ('caption', blocks.CharBlock()),
+		        ('caption', blocks.CharBlock(blank=True,required=False,null=True)),
 		    ],
 		    icon='image',
 		)),

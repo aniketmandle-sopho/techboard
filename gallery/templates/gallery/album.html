@@ -33,31 +33,16 @@ text-align: justify;
 font-family: 'Asap', sans-serif;
 font-size:30px; 
 }
+
 .images{
 position:relative;
 
 }
 .image{
 max-width:100%;
-border:2px solid black;
+border:1px solid #666666;
 }
-.items{
-    display:flex;
-}
-.photosrow{
-margin:5px;
-display:flex;
-flex-wrap:wrap;
-align-items:center;
-}
-.images{
-position:relative;
 
-}
-.image{
-max-width:100%;
-border:2px solid black;
-}
 .items{
     display:flex;
 }
@@ -84,7 +69,7 @@ align-items:center;
         {%endif%}
         {% if block.block_type == 'image' %}
             <div class='col-xs-4 images'>
-                {%image block.value original as tmp%}
+                {%image block.value fill-1280x720-c100 as tmp%}
                 <img src='{{tmp.url}}' class='image' width='100%'/>
             </div>
         {%else%}

@@ -35,7 +35,8 @@ font-size:30px;
 }
 .image{
 	max-width:100%;
-	border:2px solid black;
+border:1px solid #666666;
+	
 	-webkit-filter: blur(0px);
 	filter: blur(0px);
 	-webkit-transition: 0.5s ease-in-out;
@@ -84,7 +85,7 @@ opacity:1;
 {% for post in albums %}
 <a href='{%pageurl post%}'>
 <div class='col-xs-4 images'>
-{% image post.specific.cover original as tmp %}
+{% image post.specific.cover fill-1280x720-c100 as tmp %}
 <img src='{{tmp.url}}' class='image'/>
 <p class='message'>{{ post.title }}</p>
 </div>

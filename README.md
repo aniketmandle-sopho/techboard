@@ -28,3 +28,4 @@ TODO's
 - [ ] each team member profile page
 - [ ] DISCLAIMERS on streamfields on how to use them
 - [ ] user powers , club members and club admins
+- [ ] lcoations implent as enum fixed options

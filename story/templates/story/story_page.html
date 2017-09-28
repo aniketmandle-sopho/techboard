@@ -111,7 +111,7 @@ width:100%;
         {%elif block.block_type == 'images'%}
             <div class="row photorow marginset">
                 <div class="caption">{{block.value.caption}}</div>
-                {%image block.value.image original as tmp%}<img src='{{tmp.url}}' class='image'/>
+                {%image block.value.image fill-1280x720-c100 as tmp%}<img src='{{tmp.url}}' class='image'/>
             </div>
 
         {%elif block.block_type == 'paragraph'%}
