@@ -80,7 +80,7 @@ text-align-last: center;
 <div class="col-xs-4">
 <div class="col-md-12 project">
 {%with post.specific as item%}
-<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="projecttitle"> {{ item.title }} </h3></a>
+<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="projecttitle"> {{ item.title }} <i class="fa fa-external-link" aria-hidden="true"></i></h3></a>
 <p class="info">{{ item.date }}<br>
 {{item.competition_intro}}</p>
 {%endwith%}

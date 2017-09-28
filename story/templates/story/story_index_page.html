@@ -63,17 +63,6 @@ font-size:40px;
 	background-color:black;
 	color:white;
 }
-.inactivehead{
-	font-size:30px;
-	text-align:center;
-	font-family: 'Raleway', sans-serif;
-	padding:10px;
-	margin-top:0px;
-	margin-left:0px;
-	margin-right:0px;
-	background-color:#6a7e85;
-	color:white;
-}
 .info, .intro2{
 padding-left:10px;
 padding-right:10px;
@@ -98,7 +87,8 @@ margin-left:10px;
 	{% for post in storypages.specific %}	
 		<div class="col-xs-4 events">
 			<div class="col-md-12 activeevent">
-				<h3 class="activehead"> {{ post.title }} </h3>
+				<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="activehead"> {{ post.title }} <i class="fa fa-external-link" aria-hidden="true"></i></h3>
+				</a>
 				<div class='intro2'>{{ post.intro}} </div>
 
 			<p class="post-details"><b>Posted By</b> : {{ post.author }}<br><b>Posted On</b> : {{ post.date }}<br><b>Posted In</b> :
