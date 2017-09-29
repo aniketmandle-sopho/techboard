@@ -21,6 +21,7 @@ h1{
 text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:60px;
+padding-bottom:10px;
 }
 .intro{
 margin-left:20px;
@@ -68,16 +69,25 @@ font-size:18px;
 -moz-text-align-last: center;
 text-align-last: center;
 }
+.photosrow{
+    padding-top:12px;
+    padding-bottom:12px;
+}
 {%endblock%}
 
 {% block content %}
 <br>
-    <h1>{{ page.title }}</h1>
-    <div class="intro">{{ page.intro|richtext }}</div>
+    <h1 class="margin-setter">{{ page.title }}</h1>
+    <div class="intro margin-setter">{{ page.intro|richtext }}</div>
     <br>
-    <div class="row projectrow">
-{% for post in achievement  %}    
-<div class="col-xs-4">
+    <div class="row projectrow margin-setter">
+{% for post in achievement  %} 
+    {%if forloop.counter0|divisibleby:2 %}
+    </div>
+    <div class="row photosrow margin-setter">
+    {%endif%}   
+
+<div class="col-xs-6">
 <div class="col-md-12 project">
 {%with post.specific as item%}
 <a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="projecttitle"> {{ item.title }} <i class="fa fa-external-link" aria-hidden="true"></i></h3></a>
@@ -88,5 +98,6 @@ text-align-last: center;
 </div>
 {% endfor %}
 </div>
+<br>
 <br>
 {% endblock %}

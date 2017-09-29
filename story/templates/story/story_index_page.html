@@ -21,8 +21,12 @@ h1{
 text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:60px;
+
+
 }
 .intro{
+padding-top:10px;
+padding-bottom:20px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
@@ -81,11 +85,15 @@ margin-left:10px;
 
 {% block content %}
 	<br>
-	<h1>{{ page.title }}</h1>
-	<div class="intro">{{ page.intro|richtext }}</div>
-	<div class="row eventrow">
-	{% for post in storypages.specific %}	
-		<div class="col-xs-4 events">
+	<h1 class="margin-setter">{{ page.title }}</h1>
+	<div class="intro margin-setter">{{ page.intro|richtext }}</div>
+	<div class="row eventrow margin-setter">
+	{% for post in storypages.specific %}
+	{%if forloop.counter0|divisibleby:2 %}
+    </div>
+    <div class="row eventrow margin-setter">
+    {%endif%}	
+		<div class="col-xs-6 events">
 			<div class="col-md-12 activeevent">
 				<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="activehead"> {{ post.title }} <i class="fa fa-external-link" aria-hidden="true"></i></h3>
 				</a>
@@ -113,6 +121,7 @@ margin-left:10px;
 </div>
 
 
+	<br>
 	<br>
 {% endblock %}
 

@@ -23,7 +23,11 @@
     margin-left:18.3%;
     margin-right:18.3%;
 }
-
+.gist{
+    padding-top:12px;
+    padding-bottom:12px;
+    
+}
 h1{
     text-align:center;
     font-family: 'Asap', sans-serif;
@@ -40,14 +44,17 @@ h1{
     text-align: justify;
     -moz-text-align-last: center;
     text-align-last: center;
-    font-family: 'Asap', sans-serif;
-    font-size:30px; 
+    font-family: 'Raleway', sans-serif;
+    font-size:25px; 
+
 }
 
 .heading{
     text-align:center;
     font-family: 'Asap', sans-serif;
     font-size:40px;
+    padding-top:12px;
+    padding-bottom:12px;
 }
 .descrip{
     font-family:'Raleway',sans-serif;
@@ -78,6 +85,8 @@ width:100%;
 .link{
     font-size:18px;
     font-family: 'Asap', sans-serif;
+    padding-top:12px;
+    padding-bottom:12px;
 }
 .quote{
     padding-top:20px;
@@ -122,7 +131,8 @@ width:100%;
             <div class="link marginset"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
 
         {%elif block.block_type == 'embed'%}
-        <div class="marginset">
+        <div class="marginset" style="padding-top:12px;
+    padding-bottom:12px;">
             <div class="embed-responsive embed-responsive-16by9">
                 {%embed block.value.url%}
             </div>
@@ -143,6 +153,7 @@ width:100%;
     {% endfor %}    
 
 
+<br>
 
 
 <!--Tags-->
@@ -156,4 +167,6 @@ width:100%;
         </div>
     {% endif %}
 <!--Tags-->
+<br>
+<br>
 {% endblock %}

@@ -38,9 +38,7 @@ font-size:30px;
 font-family: 'Asap', sans-serif;
 font-size:40px;
 }
-.eventrow{
-	margin:5px;
-}
+
 
 .activeevent{
 	position:relative;
@@ -55,6 +53,8 @@ font-size:40px;
 	border-radius:5px;
 }
 .activehead{
+	padding-top:12px;
+	padding-bottom:12px;
 	font-size:30px;
 	text-align:center;
 	font-family: 'Raleway', sans-serif;
@@ -66,6 +66,8 @@ font-size:40px;
 	color:white;
 }
 .inactivehead{
+	padding-top:12px;
+	padding-bottom:12px;
 	font-size:30px;
 	text-align:center;
 	font-family: 'Raleway', sans-serif;
@@ -85,18 +87,30 @@ font-size:18px;
 -moz-text-align-last: center;
 text-align-last: center;
 }
+.photosrow{
+	padding-top:25px;
+	padding-bottom:25px;
+}
+.eventrow{
+	padding-top:12px;
+	padding-bottom:12px;
+}
 {%endblock%}
 
 {% block content %}
 <br>
-<h1>{{ page.title }}</h1>
-<div class="intro">{{ page.intro|richtext }}</div>
+<h1 class="margin-setter">{{ page.title }}</h1>
+<div class="intro margin-setter">{{ page.intro|richtext }}</div>
 
-<h2 class="heading" >Upcoming/Ongoing Events</h2>
+<h2 class="heading margin-setter" >Upcoming/Ongoing Events</h2>
 
-<div class="row eventrow">
-	{% for item in active_events  %}	
-		<div class="col-xs-4 events">
+<div class="row eventrow margin-setter">
+	{% for item in active_events  %}
+	{%if forloop.counter0|divisibleby:2 %}
+	</div>
+	<div class="row photosrow margin-setter">
+	{%endif%}
+		<div class="col-xs-6 events">
 			<div class="col-md-12 activeevent">
 				<h3 class="activehead"> {{ item.title }} </h3>
 				<div class='intro2'>{{ item.intro|richtext }} </div>
@@ -109,10 +123,14 @@ text-align-last: center;
 	{% endfor %}
 </div>
 
-<h2 class="heading" style="color: #6a7e85;" >Past Events</h2>
-<div class="row eventrow">
+<h2 class="heading margin-setter" style="color: #6a7e85;" >Past Events</h2>
+<div class="row eventrow margin-setter">
 {% for item in inactive_events  %}		
-<div class="col-xs-4 events">
+	{%if forloop.counter0|divisibleby:2 %}
+	</div>
+	<div class="row photosrow margin-setter">
+	{%endif%}	
+<div class="col-xs-6 events">
 			<div class="col-md-12 inactiveevent">
 <h3 class="inactivehead"> {{ item.title }} </h3>
 <div class='intro2'>{{ item.intro | richtext }}</div>
@@ -121,5 +139,6 @@ text-align-last: center;
 </div>
 {% endfor %}
 </div>
+<br>
 <br>
 {% endblock %}

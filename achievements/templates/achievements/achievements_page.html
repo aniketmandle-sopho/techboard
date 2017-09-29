@@ -23,8 +23,10 @@ h1{
 text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:60px;
+padding-top :15px;
 }
 .intro{
+padding-bottom :15px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
@@ -34,6 +36,7 @@ font-family: 'Asap', sans-serif;
 font-size:30px; 
 }
 .intro2{
+padding-bottom :15px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
@@ -47,6 +50,7 @@ font-size:20px;
 padding-left:10px;
 padding-right:10px;
 font-size:18px;
+padding-bottom :5px;
 font-family: 'Raleway', sans-serif;
 text-align: justify;
 -moz-text-align-last: center;
@@ -73,25 +77,25 @@ align-items:center;
 
 {% block content %}
 <br>
-<h1>{{ page.title }}</h1>
-<p class="intro">{{ page.date }}</p>
-<div class="intro2">{{ page.competition_intro }}</div>
+<h1 class="margin-setter">{{ page.title }}</h1>
+<p class="intro margin-setter">{{ page.date }}</p>
+<div class="intro2 margin-setter">{{ page.competition_intro }}</div>
 <br>
-<div class="body">{{ page.description|richtext }}</div>
-<div class='row photosrow'>
+<div class="body margin-setter">{{ page.description|richtext }}</div>
+<div class='row photosrow margin-setter'>
     {% for block in page.carousel %}
-        {%if forloop.counter0|divisibleby:3 %}
+        {%if forloop.counter0|divisibleby:2 %}
             </div>
             <br>
-            <div class="row photosrow">
+            <div class="row photosrow margin-setter">
         {%endif%}
     {% if block.block_type == 'image' %}
-        <div class='col-xs-4 images'>
+        <div class='col-xs-6 images'>
             {%image block.value fill-1280x720-c100 as tmp%}
             <img src='{{tmp.url}}' class='image' width='100%'/>
         </div>
     {%else%}
-        <div class='col-xs-4 images'>
+        <div class='col-xs-6 images'>
             <div class="embed-responsive embed-responsive-16by9">
                 {%embed block.value.url%}
             </div>
@@ -99,6 +103,7 @@ align-items:center;
         {% endif %}      
     {% endfor %}
 </div>
+<br>
 <br>
 
 {% endblock %}
