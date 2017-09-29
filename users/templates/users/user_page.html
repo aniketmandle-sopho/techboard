@@ -1,29 +1,68 @@
-{% extends "base.html" %}
+{% extends "clubHomePage/base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
+{% block body_class %}achievmentsindexpage{% endblock %}
 
-{% block body_class %}template-userpage{% endblock %}
+{%block slugurl%}{{page.get_parent.slug}}{%endblock%}
+{%block name%}{{page.get_parent.title}}{%endblock%}
+{%block title%}{{page.title}} - {{page.get_parent.title}}{%endblock%}
+{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+
+{%for pgc in page.get_parent.get_children %}
+{%ifequal pgc.slug page.slug%}
+<li class='active'><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+{%else%}
+<li><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
+{%endifequal%}
+{%endfor%}
+{%endblock%}
+
+{%block customstyles%}
+h1{
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:60px;
+padding-top :40px;
+}
+.intro{
+padding-bottom :15px;
+margin-left:20px;
+margin-right:20px;
+text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+font-family: 'Asap', sans-serif;
+font-size:30px; 
+}
+.user{
+padding-top:15px;
+	border:1px solid black;
+	text-align:center;
+}
+.user-image{
+	max-width:100%;
+}
+{%endblock%}
 
 {% block content %}
-	<h1>{{ page.title }}</h1>
+<h1 class="margin-setter">{{ page.title }}</h1>
 
-	<div class="intro">{{ page.intro|richtext }}</div>
-	<hr>
-
+<div class="intro margin-setter">{{ page.intro|richtext }}</div>
 
 
 
-{% for i in members%}
 
-   <div> 	{{ i.profile.useranme }}</div> 
-    <div> 	{{ i.profile.rollno }}</div> 
-     <div> 	{{ i.profile.phoneno }}</div> 
-     
-     <p><img src=" ../media/{{ i.profile.display_picture }}" width="300px"></p>
-      
-{% endfor %}
-
+<div class="row margin-setter">
+	{% for i in members%}
+	<div class="col-xs-4 user">
+		<img src="/media/{{ i.profile.display_picture }}" class="user-image" width="300px">
+		<div> 	{{ i.profile.user.first_name }} {{ i.profile.user.last_name }}</div> 
+		<div> 	Roll No. : {{ i.profile.rollno }}</div> 
+		<div> 	Phone No. : {{ i.profile.phoneno }}</div> 
+		<div> 	Email : {{ i.profile.user.email }}</div> 
+	</div>      
+	{% endfor %}
+</div>
+<br>
 {% endblock %}
