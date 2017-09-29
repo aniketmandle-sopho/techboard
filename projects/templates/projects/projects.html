@@ -22,8 +22,12 @@ h1{
 text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:60px;
+padding-top:40px;
+padding-bottom:12px;
 }
 .intro{
+padding-top:12px;
+padding-bottom:12px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
@@ -36,6 +40,8 @@ font-size:30px;
 	text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:40px;
+padding-top:12px;
+padding-bottom:12px;
 }
 .eventrow{
 	margin:5px;
@@ -50,70 +56,69 @@ font-size:18px;
 -moz-text-align-last: center;
 text-align-last: center;
 }
-.gist-meta{
-	display:none;
-}
-.blob-num, .js-line-number{
-	display:none;
-}
-.gist{
-margin:10px;
-	border-left:2px solid orange;
-}
-.gist-file, .gist-data{
-	border-bottom:none;
-	border-top:none;
-	border-right:none;
-}
+
 .descrip, .introduction{
+padding-top:12px;
+padding-bottom:12px;
 	margin:20px;
 	font-family:'Raleway',sans-serif;
 	font-size:18px;
 }
-.images{
-margin:20px;
-
+.photorow{
+padding-top:15px;
+padding-bottom:15px;
+    position:relative;
+    width:63.4%;
 }
 .image{
-display:block;
-max-width:100%;
-border:2px solid black;
+    display:block;
+    max-width:100%;
+    border:2px solid #d9fce3;
 width:100%;
 }
-.photorow{
-position:relative;
-	width:100%;
-}
 .document, .link{
+padding-top:12px;
+padding-bottom:12px;
 	margin:20px;
 	font-size:18px;
 	font-family: 'Asap', sans-serif;
 }
-
+.gist{
+padding-top:12px;
+padding-bottom:12px;
+	margin-left:18.3%;
+	margin-right:18.3%;
+}
+.images{
+	padding:0px;
+}
 {%endblock%}
 {% block content %}
-	<br>
-    <h1>{{ page.title }}</h1>
-    <h4 class="intro">{{ page.start}} - {%if page.end%}{{page.end}}{%else%}Ongoing{%endif%}</h4>
-    <h3 class="introduction">{{page.intro}}</h3>
+
+    <h1 class="margin-setter">{{ page.title }}</h1>
+    <h4 class="intro margin-setter">{{ page.start}} - {%if page.end%}{{page.end}}{%else%}Ongoing{%endif%}</h4>
+    <h3 class="introduction margin-setter">{{page.intro}}</h3>
     {% for block in page.body %}
     	{%if block.block_type == 'Gist'%}
 			{%autoescape off%}{{ block.value }}{%endautoescape%}
 		{%elif block.block_type == 'Images'%}
-			<div class="row photorow"><div class='col-xs-12 images'>
+			<div class="row photorow margin-setter"><div class='col-xs-12 images'>
         	    {%image block.value fill-1280x720-c100 as tmp%}<img src='{{tmp.url}}' class='image'/>
             </div></div>
 		{%elif block.block_type == 'Descrip'%}
-			<div class="descrip">{{ block.value|richtext}}</div>
+			<div class="descrip margin-setter">{{ block.value|richtext}}</div>
 		{%elif block.block_type == 'Link'%}
-			<div class="link"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
+			<div class="link margin-setter"> Visit : <a href="{{ block.value.URL }}" >{{block.value.Text}}</a></div>
 		{%elif block.block_type == 'video'%}
-			<div class="embed-responsive embed-responsive-16by9" style="margin:20px">
+			<div class="margin-setter" style="padding-top:12px; padding-bottom:12px;">
+			<div class="embed-responsive embed-responsive-16by9 ">
     			{%embed block.value.url%}
      		</div>
+     		</div>
 		{%elif block.block_type == 'Documents'%}
-			<div class="document"> Download File : {%autoescape off%}{{ block }}{%endautoescape%} <i class="fa fa-download" aria-hidden="true" style="color:#4c7eb7;"></i> </div>
+			<div class="document margin-setter"> Download File : {%autoescape off%}{{ block }}{%endautoescape%} <i class="fa fa-download" aria-hidden="true" style="color:#4c7eb7;"></i> </div>
 		{%endif%}
     {% endfor %}
+	<br>
 	<br>
 {% endblock %}

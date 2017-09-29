@@ -16,6 +16,8 @@
 .intro{
   margin-left:20px;
   margin-right:20px;
+  padding-top:20px;
+  padding-left:20px;
   text-align: justify;
   -moz-text-align-last: center;
   text-align-last: center;
@@ -29,6 +31,8 @@
 }
 .eventrow{
   margin:5px;
+  padding-top:20px;
+  padding-bottom:20px;
 }
 
 .activeevent{
@@ -134,9 +138,8 @@ margin-left:10px;
   </div>
 </div>
 <br>
-<div class="row eventrow">
-    <div class="col-xs-1"></div>
-    <div class="col-xs-4 events">
+<div class="row eventrow margin-setter">
+    <div class="col-xs-6 events">
         {% for item in aevent  %} 
       <div class="col-md-12 activeevent">
         <h3 class="activehead"> Latest Event </h3>
@@ -148,8 +151,7 @@ margin-left:10px;
          </div>
   {% endfor %}
     </div>
-    <div class="col-xs-1"></div>
-      <div class="col-xs-4 events">
+      <div class="col-xs-6 events">
         {% for item in astory %}
         
       <div class="col-md-12 activeevent">
@@ -164,7 +166,7 @@ margin-left:10px;
           &nbsp;
           {% endfor %}{% endif %}{% endwith %}
         </p>    
-    {% if item.specific.tags.all.count %}
+        {% if item.specific.tags.all.count %}
         <div class="tags" style="margin:10px;"><h3 style=" font-family:'Raleway', sans-serif;">Tags <i class="fa fa-tags" style="color:#337ab7" aria-hidden="true"> &nbsp;:</i> </h3>
             &nbsp;
             {% for tag in item.specific.tags.all %}
@@ -172,17 +174,17 @@ margin-left:10px;
             {% endfor %}
             &nbsp;
         </div>
-    {% endif %}    
+        {% endif %}    
 
 
 
          </div>
-  {% endfor %}
+      {% endfor %}
     </div>
 </div>
-<h2 class="heading" >About Us</h2>
-    <div class='intro'>{{ page.AboutUs|richtext }}</div>
-<h2 class="heading" >Vision</h2>
-    <div class='intro'>{{ page.Vision|richtext }}</div>
+<h2 class="heading margin-setter" >About Us</h2>
+    <div class='intro margin-setter'>{{ page.AboutUs|richtext }}</div>
+<h2 class="heading margin-setter" >Vision</h2>
+    <div class='intro margin-setter'>{{ page.Vision|richtext }}</div>
     <br>
 {% endblock %}

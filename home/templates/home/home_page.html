@@ -1,33 +1,168 @@
-{% extends "base.html" %}
+{% extends "clubHomePage/base.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
 
+{% block body_class %}template-eventsindexpage{% endblock %}
+{%block title%}Technical Board{%endblock%}
+{%block slugurl%}{%endblock%}
+{%block name%}Technical Board{%endblock%}
+{%block navbargenerator%}<li class="active"><a href='/' id='homelink'>Home</a></li>
+{%for pgc in page.get_children %}
+<li><a href="/{{pgc.slug}}">{{pgc.title}}</a></li>
+
+{%endfor%}
+
+{%endblock%}
+{%block customstyles%}
+
+.intro{
+  margin-left:20px;
+  margin-right:20px;
+  text-align: justify;
+  -moz-text-align-last: center;
+  text-align-last: center;
+  font-family: 'Raleway', sans-serif;
+  font-size:20px;; 
+  padding-top:20px;
+  padding-bottom:20px;
+
+}
+.heading{
+    text-align:center;
+  font-family: 'Asap', sans-serif;
+  font-size:40px;
+}
+.eventrow{
+  margin:5px;
+}
+
+.activeevent{
+  position:relative;
+  padding:0px;
+  border:1px solid black;
+  border-radius:5px;
+}
+.activehead{
+  font-size:30px;
+  text-align:center;
+  font-family: 'Raleway', sans-serif;
+  padding:10px;
+  margin-top:0px;
+  margin-left:0px;
+  margin-right:0px;
+  background-color:black;
+  color:white;
+}
+.info, .intro2{
+padding-left:10px;
+padding-right:10px;
+font-size:18px;
+  font-family: 'Raleway', sans-serif;
+  text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+}
+
+.carousel{
+  padding:0px;
+  width:100%;
+}
+.carousel-inner{
+  width:100%;
+}
+.container{
+  padding:0px;
+  margin:0px;
+  width:100%; 
+}
+.post-details{
+margin-left:10px;
+    font-size:18px;
+    font-family:'Raleway',sans-serif;
+}
+
+.events{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+{%endblock%}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <hr />
-    <div class="carousel">{{page.carousel}}</div>
-    <hr />
-    <div class="about_us">{{ page.about_us|richtext }}</div>
-    <hr />
-    <div class="vision">{{page.vision}}</div>
-    <hr />
 
-    {% for post in blogpages %}
-        {% with post=post.specific %}
-            <hr />
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-            {{ post.specific.about_us|richtext }}
-        {% endwith %}
-    {% endfor %}
-    <hr />
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="position:relative;">
+    <ol class="carousel-indicators">
+        {% for block in page.slideshow %}
+        {% if block.block_type == 'Image' %}
+        {%ifequal forloop.counter0 0%}
+        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+        {%else%}
+        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
+        {%endifequal%}
+        {% endif %}
+        {% endfor %} 
 
-    <div class="related_links">
-        {% for lin in page.related_links %}
-         <a href="{{ lin.value.url }}"> {{ lin.value.name }}</a>
-        {% endfor %}
+    </ol>
+
+    <div class="carousel-inner">
+
+
+        {% for block in page.slideshow %}
+        {% if block.block_type == 'Image' %}
+
+        {%ifequal forloop.counter0 0%}
+        <div class="item active">
+            {%image block.value.image fill-5120x2867-c100 as tmp%}
+            <img src='{{tmp.url}}' style='width:100%' />
+            <div class="carousel-caption">
+              <h3>{{block.value.caption}}</h3>
+          </div>
+      </div>
+      {%else%}
+      <div class="item"> 
+          {%image block.value.image fill-5120x2867-c100 as tmp%}
+          <img src='{{tmp.url}}'  style='width:100%' />
+          <div class="carousel-caption">
+              <h3>{{block.value.caption}}</h3>
+          </div>
+      </div>
+      {%endifequal%}
+      {% endif %}
+      {% endfor %} 
+
+
+  </div>
+
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+  </a>
+  </div>
+</div>
+<br>
+<div class="row eventrow margin-setter">
+        {% for item in aevent  %} 
+    <div class="col-xs-6 events">
+      <div class="col-md-12 activeevent">
+        <h3 class="activehead"> {{item.page.get_parent}} </h3>
+        <div class='intro2' style="font-size:25px;" >{{ item.title }} </div>
+        <p class="info">Event Starts At :{{ item.start }}<br>
+        Event Ends At :{{ item.end }}<br>
+        Location :{{ item.venue }}
+        </p>
+         </div>
     </div>
-
-
-
+  {% endfor %}
+    </div>
+<h2 class="heading margin-setter" >About Us</h2>
+    <div class='intro margin-setter'>{{ page.AboutUs|richtext }}</div>
+<h2 class="heading margin-setter" >Vision</h2>
+    <div class='intro margin-setter'>{{ page.Vision|richtext }}</div>
+    <br>
 {% endblock %}
+        

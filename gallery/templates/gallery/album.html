@@ -24,6 +24,7 @@ font-family: 'Asap', sans-serif;
 font-size:60px;
 }
 .intro{
+padding:5px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
@@ -36,7 +37,8 @@ font-size:30px;
 
 .images{
 position:relative;
-
+margin-top:15px;
+margin-bottom:15px;
 }
 .image{
 max-width:100%;
@@ -47,39 +49,59 @@ border:1px solid #666666;
     display:flex;
 }
 .photosrow{
-margin:5px;
 display:flex;
 flex-wrap:wrap;
 align-items:center;
 
 }
+
 {%endblock%}
 {% block content %}
 <!--http://docs.wagtail.io/en/v1.9/topics/writing_templates.html    responsive embeds  for proper stylin-->
 <br>
 
-<h1>{{ page.title }}</h1>
-<div class='intro'>{{ page.desc|richtext }}</div>
-<div class='row photosrow'>
+<h1 class="margin-setter">{{ page.title }}</h1>
+<div class='intro margin-setter'>{{ page.desc|richtext }}</div>
+<div class='row photosrow margin-setter'>
     {% for block in page.body %}
-{%if forloop.counter0|divisibleby:3 %}
-            </div>
-            <br>
-            <div class="row photosrow">
-        {%endif%}
+
         {% if block.block_type == 'image' %}
-            <div class='col-xs-4 images'>
+            <div class='col-xs-6 images'>
                 {%image block.value fill-1280x720-c100 as tmp%}
-                <img src='{{tmp.url}}' class='image' width='100%'/>
+                <img src='{{tmp.url}}' data-toggle="modal" data-target="#myModal" id="{{forloop.counter0}}"class='image' width='100%'/>
             </div>
         {%else%}
-            <div class='col-xs-4 images'>
+            <div class='col-xs-6 images'>
                 <div class="embed-responsive embed-responsive-16by9">
                     {%embed block.value.url%}
                  </div>
             </div>
         {% endif %}      
     {% endfor %}
+</div>
+<script type="text/javascript">
+var x;
+$(document).ready(function () {
+    
+        $('#myModal').on('show.bs.modal', function (e) {
+            var image = $(e.relatedTarget).attr('src');
+            x = image.substr(0,7) + 'original_'+image.substr(7);
+            x = x.slice(0,-31) + 'jpg';
+            $(".img-responsive").attr("src", x);
+        });
+});
+</script>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="img-responsive" src="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
  <br>
 {% endblock %}

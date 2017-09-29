@@ -17,81 +17,108 @@
 {%endblock%}
 {%block customstyles%}
 h1{
+padding-top:4%;
 text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:60px;
 }
 .intro{
-margin-left:20px;
-margin-right:20px;
+margin-left:18.3%;
+margin-right:18.3%;
 text-align: justify;
-    -moz-text-align-last: center;
-    text-align-last: center;
+-moz-text-align-last: center;
+text-align-last: center;
 font-family: 'Asap', sans-serif;
 font-size:30px;	
 }
 .images{
-	position:relative;
+position:relative;
 }
 .image{
-	max-width:100%;
+max-width:100%;
 border:1px solid #666666;
-	
-	-webkit-filter: blur(0px);
-	filter: blur(0px);
-	-webkit-transition: 0.5s ease-in-out;
-	transition: 0.5s ease-in-out;
+
+-webkit-filter: blur(0px);
+filter: blur(0px);
+-webkit-transition: 0.5s ease-in-out;
+transition: 0.5s ease-in-out;
 }
 .images:hover>.image{
-	-webkit-filter: blur(3px);
-	filter: blur(3px);
-	z-index:-99;
+-webkit-filter: blur(3px);
+filter: blur(3px);
+z-index:-99;
 }
 
 .message {
 	position:absolute;
 	top:40%;
-    display:none;;
 	display:inline-block;
 	opacity:0;
-    color:white;
-    font-size:20px;
-    text-align:center;
+	font-size:30px;
+	text-align:center;
 	left:3%;
-    width:94%;
-    background-color:black;
-font-family: 'Asap', sans-serif;
-	padding-top:25px;
-	padding-bottom:25px;
+	z-index:202;
+	width:94%;
+	color:white;
+
+	font-family: 'Asap', sans-serif;
+	padding-top:3.25%;
+	padding-bottom:3.25%;
 }
+
 .images:hover>.message{
 opacity:1;
-	-webkit-transition:opacity 0.5s ease-in-out;
-	transition:opacity 0.5s ease-in-out;
-
+-webkit-transition:opacity 0.5s ease-in-out;
+transition:opacity 0.5s ease-in-out;
 }
-#photosrow{
-	margin:5px;
+.images:hover>.message-cover{
+opacity:0.7;
+-webkit-transition:opacity 0.5s ease-in-out;
+transition:opacity 0.5s ease-in-out;
+}
+.message-cover{
+	background-color:#2ca2c6;
+	top:7.5%;
+	height:85%;
+	position:absolute;
+	right:2.5%;
+	left:2.5%;
+	opacity:0;
+	
+	z-index:200;
+}
+.photosrow{
+margin-right:18.3%;
+margin-left:18.3%;
+}
+.images{
+	padding-top:2.6%;
+	padding-bottom:2.6%;
 }
 {%endblock%}
 {% block content %}
-<br>
+
 <h1>{{ page.title }}</h1>
 
 <div class="intro">{{ page.intro|richtext }}</div>
 
 
-<div class='row' id='photosrow'>
-{% for post in albums %}
-<a href='{%pageurl post%}'>
-<div class='col-xs-4 images'>
-{% image post.specific.cover fill-1280x720-c100 as tmp %}
-<img src='{{tmp.url}}' class='image'/>
-<p class='message'>{{ post.title }}</p>
+<div class='row photosrow'>
+	{% for post in albums %}
+	{%if forloop.counter0|divisibleby:3 %}
 </div>
-</a>
+<div class="row photosrow">
+	{%endif%}
+	<a href='{%pageurl post%}'>
+		<div class='col-xs-6 images'>
+			{% image post.specific.cover fill-1280x720-c100 as tmp %}
+			<img src='{{tmp.url}}' class='image'/>
+			<div class="message-cover"></div>
+			<p class='message'>{{ post.title }}</p>
+		</div>
+	</a>
 
-{% endfor %}
+	{% endfor %}
 </div>
 <br>
 {% endblock %}
