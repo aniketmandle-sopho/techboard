@@ -21,6 +21,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from events import models as event
+from django.db.models import Q
 
 class ImagecBlock(blocks.StructBlock):
     image = ImageChooserBlock()
@@ -46,9 +47,11 @@ class clubHomePage(Page):
 	def get_context(self, request):
 		# Update context to include only published posts, ordered by reverse-chron
 		context = super(clubHomePage, self).get_context(request)
-		aevent = self.get_children().live().type(event.EventIndexPage)
+		eveindpag = self.get_children().live().type(event.EventIndexPage)
+		aevent = event.Events.objects.filter(Q(page=eveindpag)&Q(IsActive=1)).order_by('start')[:1]
 		context['aevent'] = aevent
 		return context
+
 
 	content_panels = Page.content_panels + [
 		MultiFieldPanel([

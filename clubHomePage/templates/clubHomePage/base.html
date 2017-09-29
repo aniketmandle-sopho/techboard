@@ -25,30 +25,14 @@ font-family: 'Raleway', sans-serif;
 font-family: 'PT Sans', sans-serif;
 -->
 	<style type="text/css">
-/*		html{
-			height: 100%;
-		}
-		body{
-			margin-top: 50px;
-			height: 100%;
-			min-height: 100%;
-
-		}
-		footer{
-			background:black;
-			color:white;
-			height:200px;
-			clear:both;
-			position:relative;
-			bottom:0;
-		}*/
 		html {
 			height:100%;
 			overflow-x:hidden;
 		}
 		body {
 			margin-top:50px;
-			min-height:100%; position:relative;
+			min-height:100%;
+			position:relative;
 
 		}
 		.carousel {
@@ -73,14 +57,6 @@ font-family: 'PT Sans', sans-serif;
 		}
 		{%block customstyles%}{%endblock%}
 	</style>
-	<script type="text/javascript">
-		var slugurl = '/{%block slugurl%}{%endblock%}';
-		var clubname = '{%block name%}{%endblock%}';
-		$('#main-header').attr('href',slugurl);
-		$('#homelink').attr('href',slugurl);
-		$('#main-header').text(clubname);
-	</script>
-	
 </head>
 
 
@@ -105,12 +81,21 @@ font-family: 'PT Sans', sans-serif;
 			</ul>
 		</div>
 	</nav>
+	<script type="text/javascript">
+		var slugurl = '/{%block slugurl%}{%endblock%}';
+		var clubname = '{%block name%}{%endblock%}';
+		$('#main-header').attr('href',slugurl);
+		$('#homelink').attr('href',slugurl);
+		$('#main-header').text(clubname);
+	</script>
+	
 </header>
 
 <body>
 	{% block content %}{% endblock %}
 </body>
 
+<div class="footer-ghost"></div>
 <footer class="footer">
 	<div class="container-fluid">
 		<div class="col-xs-4">
@@ -165,5 +150,4 @@ font-family: 'PT Sans', sans-serif;
 	</div>
 </footer>
 
-<div class="footer-ghost"></div>
 </html>
