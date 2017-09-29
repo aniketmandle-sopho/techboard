@@ -22,6 +22,7 @@ from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from events import models as event
 from django.db.models import Q
+from story.models import StoryPage, StoryIndexPage
 
 class ImagecBlock(blocks.StructBlock):
     image = ImageChooserBlock()
@@ -50,8 +51,10 @@ class clubHomePage(Page):
 		eveindpag = self.get_children().live().type(event.EventIndexPage)
 		aevent = event.Events.objects.filter(Q(page=eveindpag)&Q(IsActive=1)).order_by('start')[:1]
 		context['aevent'] = aevent
+		stindpag = self.get_children().live().type(StoryIndexPage).first()
+		astory = stindpag.get_children().live().order_by('-first_published_at')[:1]
+		context['astory'] = astory
 		return context
-
 
 	content_panels = Page.content_panels + [
 		MultiFieldPanel([

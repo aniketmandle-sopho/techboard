@@ -1,7 +1,7 @@
 {% extends "clubHomePage/base.html" %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
-
+{%block title%}{{page.title}} - {{page.get_parent.title}}{%endblock%}
 {% block body_class %}template-clubhomepage{% endblock %}
 {%block slugurl%}{{page.slug}}{%endblock%}
 {%block slugurlrepeat%}{{page.slug}}{%endblock%}
@@ -11,76 +11,220 @@
 <li><a href="{{pgc.slug}}">{{pgc.title}}</a></li>
 {%endfor%}
 {%endblock%}
+
+{% block customstyles%}
+body,
+html {
+  font-family: 'Roboto', sans-serif;
+}
+.footer{
+  z-index:0;
+  bottom:0px;
+}
+main{
+position:relative;
+  padding-bottom:600px;;
+}
+.slideshow {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+.slideshow .slider {
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+.slideshow .slider * {
+  outline: none;
+}
+.slideshow .slider .item {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
+.slideshow .slider .item .text {
+  display: none;
+}
+.slideshow .slider .item img {
+  min-width: 101%;
+  min-height: 101%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.slideshow.slideshow-right {
+  left: 0;
+  z-index: 1;
+  width: 50vw;
+  pointer-events: none;
+}
+.slideshow.slideshow-right .slider {
+  left: 0;
+  position: absolute;
+}
+
+.slideshow-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 100;
+  font-size: 80px;
+  width: 100vw;
+  text-align: center;
+  color: #fff;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 100;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 20px;
+  line-height: 0.8;
+}
+@media (max-width: 767px) {
+  .slideshow-text {
+    font-size: 40px;
+  }
+}
+.content{
+position:absolute;
+top:100%;
+  z-index:0;
+
+.heading{
+  text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:40px;
+}
+.eventrow{
+  margin:5px;
+}
+
+.activeevent{
+  position:relative;
+  padding:0px;
+  border:1px solid black;
+  border-radius:5px;
+}
+.activehead{
+  font-size:30px;
+  text-align:center;
+  font-family: 'Raleway', sans-serif;
+  padding:10px;
+  margin-top:0px;
+  margin-left:0px;
+  margin-right:0px;
+  background-color:black;
+  color:white;
+}
+{%endblock%}
 {% block content %}
+<main>
 <div class="split-slideshow">
   <div class="slideshow">
     <div class="slider">
-      <div class="item">
-        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-2.jpg" />
+
+      {% for block in page.slideshow %}
+        {% if block.block_type == 'Image' %}
+
+        <div class="item">
+            {%image block.value.image fill-5120x2867-c100 as tmp%}
+            <img src='{{tmp.url}}' style='width:100%' />
+        </div>
+      {% endif %}
+      {% endfor %} 
+
     </div>
-    <div class="item">
-        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-3.jpg" />
+  </div>
+
+  <div class="slideshow-text">
+      {% for block in page.slideshow %}
+        {% if block.block_type == 'Image' %}
+    <div class="item">{{block.value.caption}}</div>
+      {% endif %}
+      {% endfor %} 
+  </div>
+<section class="content">
+  <div class='contentname '>
+    
+  <h2 class="heading" >Upcoming/Ongoing Events</h2>
+
+  <div class="row eventrow">  
+  {% for item in aevent  %}  
+    <div class="col-xs-4 events">
+      <div class="col-md-12 activeevent">
+        <h3 class="activehead"> {{ item.title }} </h3>
+        <div class='intro2'>{{ item.intro|richtext }} </div>
+        <p class="info">Event Starts At :{{ item.start }}<br>
+        Event Ends At :{{ item.end }}<br>
+        Location :{{ item.venue }}
+        </p>
+         </div>
     </div>
-    <div class="item">
-        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-4.jpg" />
-    </div>
-    <div class="item">
-        <img src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/canyon-1.jpg" />
-    </div>
-</div>
-</div>
-<div class="slideshow-text">
-    <div class="item">Canyon</div>
-    <div class="item">Desert</div>
-    <div class="item">Erosion</div>
-    <div class="item">Shape</div>
-</div>
+  {% endfor %}
+  </div>
+
+    <p>About Us: </br> {{ page.AboutUs|richtext }}</p>
+    <p>Vision: </br> {{ page.Vision|richtext }}</p>
+  </div>
+</section>
 </div>
 
 <script type="text/javascript">
-    var $slider = $('.slideshow .slider'),
-    maxItems = $('.item', $slider).length,
-    dragging = false,
-    tracking,
-    rightTracking;
+  var $slider = $('.slideshow .slider'),
+  maxItems = $('.item', $slider).length,
+  dragging = false,
+  tracking,
+  rightTracking;
 
-    $sliderRight = $('.slideshow').clone().addClass('slideshow-right').appendTo($('.split-slideshow'));
+  $sliderRight = $('.slideshow').clone().addClass('slideshow-right').appendTo($('.split-slideshow'));
 
-    rightItems = $('.item', $sliderRight).toArray();
-    reverseItems = rightItems.reverse();
-    $('.slider', $sliderRight).html('');
-    for (i = 0; i < maxItems; i++) {
-        $(reverseItems[i]).appendTo($('.slider', $sliderRight));
+  rightItems = $('.item', $sliderRight).toArray();
+  reverseItems = rightItems.reverse();
+  $('.slider', $sliderRight).html('');
+  for (i = 0; i < maxItems; i++) {
+  $(reverseItems[i]).appendTo($('.slider', $sliderRight));
+  }
+
+  $slider.addClass('slideshow-left');
+  $('.slideshow-left').slick({
+  vertical: true,
+  //verticalSwiping: true,
+  arrows: false,
+  infinite: true,
+  dots: false,
+  speed: 1000,
+  cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
+  }).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+
+    if (currentSlide > nextSlide && nextSlide == 0 && currentSlide == maxItems - 1) {
+      $('.slideshow-right .slider').slick('slickGoTo', -1);
+      $('.slideshow-text').slick('slickGoTo', maxItems);
     }
+    else if (currentSlide < nextSlide && currentSlide == 0 && nextSlide == maxItems - 1) {
+      $('.slideshow-right .slider').slick('slickGoTo', maxItems);
+      $('.slideshow-text').slick('slickGoTo', -1);
+    }
+    else {
+      $('.slideshow-right .slider').slick('slickGoTo', maxItems - 1 - nextSlide);
+      $('.slideshow-text').slick('slickGoTo', nextSlide);
+    }
+  })
+  function changeImage(){
+    $slider.slick('slickNext')
+  };
+  setInterval(changeImage,2000);
 
-    $slider.addClass('slideshow-left');
-    $('.slideshow-left').slick({
-        vertical: true,
-        verticalSwiping: true,
-        arrows: false,
-        infinite: true,
-        dots: false,
-        speed: 1000,
-        cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
-    }).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-
-        if (currentSlide > nextSlide && nextSlide == 0 && currentSlide == maxItems - 1) {
-            $('.slideshow-right .slider').slick('slickGoTo', -1);
-            $('.slideshow-text').slick('slickGoTo', maxItems);
-        } else if (currentSlide < nextSlide && currentSlide == 0 && nextSlide == maxItems - 1) {
-            $('.slideshow-right .slider').slick('slickGoTo', maxItems);
-            $('.slideshow-text').slick('slickGoTo', -1);
-        } else {
-            $('.slideshow-right .slider').slick('slickGoTo', maxItems - 1 - nextSlide);
-            $('.slideshow-text').slick('slickGoTo', nextSlide);
-        }
-    })
-    function changeImage(){
-     $slider.slick('slickNext')
- };
- setInterval(changeImage,2000);
- 
- $('.slideshow-right .slider').slick({
+  $('.slideshow-right .slider').slick({
     swipe: false,
     vertical: true,
     arrows: false,
@@ -88,46 +232,18 @@
     speed: 950,
     cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)',
     initialSlide: maxItems - 1
-});
- $('.slideshow-text').slick({
+  });
+  $('.slideshow-text').slick({
     swipe: false,
     vertical: true,
     arrows: false,
     infinite: true,
     speed: 900,
     cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)'
-});
+  });
 </script>
+<br>
 
-<div>
-    <article>
-        {% for block in page.slideshow %}
-        {% if block.block_type == 'Image' %}
-        {%image block.value.image fill-320x240%}
-        {{block.value.caption}}
-        {% endif %}
-        {% endfor %}
-    </article>
-</div>
-<div class='contentname '>
-    {%for post in aevent %}
-    <hr>
-    {% for block in post.specific.event%}
-    {%if forloop.counter0 <= 1 %}
-    {% if block.block_type == 'evnt' %}
-    {% if block.value.isActive == 1 %} 
-    <h3> {{ block.value.title }} </h3>
-    <p> {{ block.value.intro }}</p>
-    <p>Event Starts At :{{ block.value.start }}</p>
-    <p>Location :{{ block.value.venue }}</p>
-    <hr>
-    {% endif %}
-    {% endif %}
-    {% endif %}
-    {% endfor %}
-    {%endfor%}
 
-    <p>About Us: </br> {{ page.AboutUs|richtext }}</p>
-    <p>Vision: </br> {{ page.Vision|richtext }}</p>
-</div>
+</main>
 {% endblock %}
