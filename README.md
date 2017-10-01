@@ -2,6 +2,10 @@
 
 This Website is powered by Wagtail CMS v1.11 (based on Django) and database is currently sqlite
 
+Additional apps required
+pip install wagtail-condensedinlinepanel==0.3
+
+
 TODO's
 
 - [ ] UI

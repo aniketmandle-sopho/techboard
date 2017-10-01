@@ -43,12 +43,14 @@ font-size:40px;
 .activeevent{
 	position:relative;
 	padding:0px;
+	padding-bottom:10px;
 	border:1px solid black;
 	border-radius:5px;
 }
 .inactiveevent{
 	position:relative;
 	padding:0px;
+	padding-bottom:10px;
 	border:1px solid #6a7e85;
 	border-radius:5px;
 }
@@ -79,8 +81,8 @@ font-size:40px;
 	color:white;
 }
 .info, .intro2{
-padding-left:10px;
-padding-right:10px;
+padding-left:25px;
+padding-right:25px;
 font-size:18px;
 	font-family: 'Raleway', sans-serif;
 	text-align: justify;
@@ -95,6 +97,30 @@ text-align-last: center;
 	padding-top:12px;
 	padding-bottom:12px;
 }
+
+
+
+.hideContent {
+    overflow: hidden;
+    line-height: 1em;
+    height: 1em;
+}
+
+.showContent {
+    line-height: 1em;
+    height: auto;
+}
+.showContent{
+    height: auto;
+}
+
+.show-more {
+    padding: 10px 0;
+    text-align: center;
+}
+.eventcontent{
+	padding-top:10px;
+}
 {%endblock%}
 
 {% block content %}
@@ -103,7 +129,6 @@ text-align-last: center;
 <div class="intro margin-setter">{{ page.intro|richtext }}</div>
 
 <h2 class="heading margin-setter" >Upcoming/Ongoing Events</h2>
-
 <div class="row eventrow margin-setter">
 	{% for item in active_events  %}
 	{%if forloop.counter0|divisibleby:2 %}
@@ -113,7 +138,14 @@ text-align-last: center;
 		<div class="col-xs-6 events">
 			<div class="col-md-12 activeevent">
 				<h3 class="activehead"> {{ item.title }} </h3>
-				<div class='intro2'>{{ item.intro|richtext }} </div>
+				<div class="eventcontent">
+				    <div class="intro2 content hideContent">
+				    {{ item.intro|richtext }}
+				    </div>
+				    <div class="show-more">
+				        <a href="#">Show more</a>
+				    </div>
+				    </div>
 				<p class="info">Event Starts At :{{ item.start }}<br>
 				Event Ends At :{{ item.end }}<br>
 				Location :{{ item.venue }}
@@ -133,7 +165,15 @@ text-align-last: center;
 <div class="col-xs-6 events">
 			<div class="col-md-12 inactiveevent">
 <h3 class="inactivehead"> {{ item.title }} </h3>
-<div class='intro2'>{{ item.intro | richtext }}</div>
+
+				<div class="eventcontent">
+<div class="intro2 content hideContent">
+				    {{ item.intro|richtext }}
+				    </div>
+				    <div class="show-more">
+				        <a href="#">Show more</a>
+				    </div>
+				    </div>
 <p class="info"> Event Ended On: {{item.end.date}}</p>
 </div>
 </div>
@@ -141,4 +181,23 @@ text-align-last: center;
 </div>
 <br>
 <br>
+<script type="text/javascript">
+$(".show-more a").on("click", function() {
+    var $this = $(this); 
+    var $content = $this.parent().prev("div.content");
+    var linkText = $this.text().toUpperCase();    
+    
+    if(linkText === "SHOW MORE"){
+        linkText = "Show less";
+        $content.switchClass("hideContent", "showContent", 400);
+    } else {
+        linkText = "Show more";
+        $content.switchClass("showContent", "hideContent", 400);
+    };
+
+    $this.text(linkText);
+    return false;
+});
+
+</script>
 {% endblock %}

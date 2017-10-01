@@ -30,9 +30,10 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=30)
+    firstname = models.CharField(max_length=30)
+    lastname = models.CharField(max_length=30)
     #clubname = models.CharField(max_length=30)
-
+    
     clubname_choices = (
     ('automobile', 'Automobile'),
     ('robotics', 'robotics'),
@@ -58,7 +59,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True)
 
     def __str__(self):
-		content = "PROFILE_NAME : " + self.username
+		content = self.firstname + " " +self.lastname
 		return content
 
 

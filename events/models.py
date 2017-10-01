@@ -21,7 +21,6 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from django.db.models import Q
-	
 # @register_snippet
 # class EventLocation(models.Model):
 # 	location = models.CharField(max_length=255)
