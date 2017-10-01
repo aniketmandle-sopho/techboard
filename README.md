@@ -1,35 +1,22 @@
 # TechBoard WebSite
 
-This Website is powered by Wagtail CMS v1.11 (based on Django) and database is currently sqlite
+This Website is powered by Wagtail CMS v1.11 (based on Django).
 
-Additional apps required
-pip install wagtail-condensedinlinepanel==0.3
-
+Database MariaDB
 
 TODO's
 
-- [ ] UI
-
-	- [ ] Home Page
-	- [ ] Club Home Page
-	- [ ] Team Page
-	- [x] Events
-	- [x] Gallery
-	- [x] Projects
-	- [x] Story
-	- [x] achivements
-
-- [x] nginx
+- [ ] Tags UI
+- [ ] Add Help Text For Fields
 - [ ] Shift To MariaDB
-- [ ] Categories -> SubCategories
-- [ ] Event, Projects, Stories Read More btn
-- [ ] Album Click To Full Screen
-- [ ] Search an alternative for gist it is slow
+- [ ] Categories -> SubCategories hiearchieal model
 - [ ] Projects Page Sort by end date.
-- [ ] For Long Quotes Gets distorted.
-- [ ] Appropriate Font Size
 - [ ] All apps importing from a single models.py folder
 - [ ] each team member profile page
-- [ ] DISCLAIMERS on streamfields on how to use them
 - [ ] user powers , club members and club admins
-- [ ] lcoations implent as enum fixed options
+- [ ] locations implent as enum fixed options (the way django is using categorires)
+- [ ] Have feasable or realistic value of CharField
+- [ ] To implement User of One Club Cant Post In Another
+- [ ] Have A Different Page Named As Club
+- [ ] RichTextField disabling images (can be done simply using .rich-text img display none)
+- [ ] Delete AchievemnetsIndexPage.carousel

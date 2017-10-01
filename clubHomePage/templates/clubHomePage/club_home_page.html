@@ -6,7 +6,9 @@
 {%block slugurl%}{{page.slug}}{%endblock%}
 {%block slugurlrepeat%}{{page.slug}}{%endblock%}
 {%block name%}{{page.title}}{%endblock%}
-{%block navbargenerator%}<li class='active' ><a href='/' id='homelink'>Home</a></li>
+{%block navbargenerator%}
+<li><a href='/'>Technical Board Home</a></li>
+<li class='active' ><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_children %}
 <li><a href="{{pgc.slug}}">{{pgc.title}}</a></li>
 {%endfor%}
@@ -14,70 +16,71 @@
 {%block customstyles%}
 
 .intro{
-  margin-left:20px;
-  margin-right:20px;
-  padding-top:20px;
-  padding-left:20px;
-  text-align: justify;
-  -moz-text-align-last: center;
-  text-align-last: center;
-  font-family: 'Raleway', sans-serif;
-  font-size:20px;; 
+margin-left:20px;
+margin-right:20px;
+padding-top:20px;
+padding-left:20px;
+text-align: justify;
+-moz-text-align-last: center;
+text-align-last: center;
+font-family: 'Raleway', sans-serif;
+font-size:20px;; 
 }
 .heading{
-    text-align:center;
-  font-family: 'Asap', sans-serif;
-  font-size:40px;
+text-align:center;
+font-family: 'Asap', sans-serif;
+font-size:40px;
 }
 .eventrow{
-  margin:5px;
-  padding-top:20px;
-  padding-bottom:20px;
+margin:5px;
+padding-top:20px;
+padding-bottom:20px;
 }
 
 .activeevent{
-  position:relative;
-  padding:0px;
-  border:1px solid black;
-  border-radius:5px;
+position:relative;
+padding:0px;
+border:1px solid black;
+border-radius:5px;
 }
 .activehead{
-  font-size:30px;
-  text-align:center;
-  font-family: 'Raleway', sans-serif;
-  padding:10px;
-  margin-top:0px;
-  margin-left:0px;
-  margin-right:0px;
-  background-color:black;
-  color:white;
+font-size:30px;
+text-align:center;
+font-family: 'Raleway', sans-serif;
+padding:10px;
+margin-top:0px;
+margin-left:0px;
+margin-right:0px;
+background-color:black;
+color:white;
 }
 .info, .intro2{
 padding-left:10px;
 padding-right:10px;
 font-size:18px;
-  font-family: 'Raleway', sans-serif;
-  text-align: justify;
+font-family: 'Raleway', sans-serif;
+text-align: justify;
 -moz-text-align-last: center;
 text-align-last: center;
 }
 
 .carousel{
-  padding:0px;
-  width:100%;
+padding:0px;
+width:100%;
 }
 .carousel-inner{
-  width:100%;
+width:100%;
 }
 .container{
-  padding:0px;
-  margin:0px;
-  width:100%; 
+padding:0px;
+margin:0px;
+width:100%; 
 }
 .post-details{
 margin-left:10px;
-    font-size:18px;
-    font-family:'Raleway',sans-serif;
+font-size:18px;
+font-family:'Raleway',sans-serif;
+text-align:center;
 }
 {%endblock%}
 
@@ -86,105 +89,108 @@ margin-left:10px;
 <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel" style="position:relative;">
     <ol class="carousel-indicators">
-        {% for block in page.slideshow %}
-        {% if block.block_type == 'Image' %}
-        {%ifequal forloop.counter0 0%}
-        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
-        {%else%}
-        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
-        {%endifequal%}
-        {% endif %}
-        {% endfor %} 
+      {% for block in page.slideshow %}
+      {% if block.block_type == 'Image' %}
+      {%ifequal forloop.counter0 0%}
+      <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+      {%else%}
+      <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
+      {%endifequal%}
+      {% endif %}
+      {% endfor %} 
 
     </ol>
 
     <div class="carousel-inner">
 
 
-        {% for block in page.slideshow %}
-        {% if block.block_type == 'Image' %}
+      {% for block in page.slideshow %}
+      {% if block.block_type == 'Image' %}
 
-        {%ifequal forloop.counter0 0%}
-        <div class="item active">
-            {%image block.value.image fill-5120x2867-c100 as tmp%}
-            <img src='{{tmp.url}}' style='width:100%' />
-            <div class="carousel-caption">
-              <h3>{{block.value.caption}}</h3>
-          </div>
+      {%ifequal forloop.counter0 0%}
+      <div class="item active">
+        {%image block.value.image fill-5120x2867-c100 as tmp%}
+        <img src='{{tmp.url}}' style='width:100%' />
+        <div class="carousel-caption">
+          <h3>{{block.value.caption}}</h3>
+        </div>
       </div>
       {%else%}
       <div class="item"> 
-          {%image block.value.image fill-5120x2867-c100 as tmp%}
-          <img src='{{tmp.url}}'  style='width:100%' />
-          <div class="carousel-caption">
-              <h3>{{block.value.caption}}</h3>
-          </div>
+        {%image block.value.image fill-5120x2867-c100 as tmp%}
+        <img src='{{tmp.url}}'  style='width:100%' />
+        <div class="carousel-caption">
+          <h3>{{block.value.caption}}</h3>
+        </div>
       </div>
       {%endifequal%}
       {% endif %}
       {% endfor %} 
 
 
-  </div>
+    </div>
 
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
       <span class="glyphicon glyphicon-chevron-right"></span>
       <span class="sr-only">Next</span>
-  </a>
+    </a>
   </div>
 </div>
 <br>
 <div class="row eventrow margin-setter">
-    <div class="col-xs-6 events">
-        {% for item in aevent  %} 
-      <div class="col-md-12 activeevent">
-        <h3 class="activehead"> Latest Event </h3>
-        <div class='intro2' style="font-size:25px;" >{{ item.title }} </div>
-        <p class="info">Event Starts At :{{ item.start }}<br>
+  <div class="col-xs-6 events">
+    {% for item in aevent  %} 
+    <div class="col-md-12 activeevent">
+      <h3 class="activehead"> Latest Event </h3>
+      <div class='intro2' style="font-size:25px;" >{{ item.title }} </div>
+      <p class="info">Event Starts At :{{ item.start }}<br>
         Event Ends At :{{ item.end }}<br>
         Location :{{ item.venue }}
-        </p>
-         </div>
-  {% endfor %}
+      </p>
     </div>
-      <div class="col-xs-6 events">
-        {% for item in astory %}
-        
-      <div class="col-md-12 activeevent">
-        <h3 class="activehead"> Latest Story </h3>
-        <div class='intro2' style="font-size:25px;">{{ item.title }} </div>
+    {% endfor %}
+  </div>
+  <div class="col-xs-6 events">
+    {% for item in astory %}
+
+    <div class="col-md-12 activeevent">
+      <h3 class="activehead"> Latest Story </h3>
+      <div class='intro2' style="font-size:25px;">{{ item.title }} </div>
 
 
-        <p class="post-details"><b>Posted By</b> : {{ item.specific.author }}<br><b>Posted On</b> : {{ item.specific.date }}<br><b>Posted In</b> :
-          {% with categories=item.specific.categories.all %}{% if categories %}{% for category in categories %}
-          {% image category.icon fill-28x28 style="vertical-align: middle" %}
-          {{ category.name }}
-          &nbsp;
-          {% endfor %}{% endif %}{% endwith %}
-        </p>    
-        {% if item.specific.tags.all.count %}
-        <div class="tags" style="margin:10px;"><h3 style=" font-family:'Raleway', sans-serif;">Tags <i class="fa fa-tags" style="color:#337ab7" aria-hidden="true"> &nbsp;:</i> </h3>
-            &nbsp;
-            {% for tag in item.specific.tags.all %}
-                <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="btn btn-primary ">{{ tag }}</a>
-            {% endfor %}
-            &nbsp;
-        </div>
-        {% endif %}    
+      <p class="post-details" style="padding-bottom:25px;"><b>Posted By</b> : {{ item.specific.author }}<br><b>Posted On</b> : {{ item.specific.date }}<br>        </p>    
 
-
-
-         </div>
-      {% endfor %}
     </div>
+    {% endfor %}
+  </div>
 </div>
 <h2 class="heading margin-setter" >About Us</h2>
-    <div class='intro margin-setter'>{{ page.AboutUs|richtext }}</div>
+<div class='intro margin-setter'>{{ page.AboutUs|richtext }}</div>
 <h2 class="heading margin-setter" >Vision</h2>
-    <div class='intro margin-setter'>{{ page.Vision|richtext }}</div>
-    <br>
+<div class='intro margin-setter'>{{ page.Vision|richtext }}</div>
+<br>
 {% endblock %}
+
+{%block socialicons%}
+
+          {%if page.facebook_link%}
+          <a href="{{page.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.twitter_link%}
+          <a href="{{page.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+          {%endif%}
+          {%if page.youtube_link%}
+          <a href="{{page.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.googleplus_link%}
+          <a href="{{page.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.emailaddress%}
+          <a href="mailto:{{page.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+          {%endif%}
+
+{%endblock%}

@@ -7,7 +7,7 @@
 {%block slugurl%}{{page.get_parent.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.get_parent.title}}{%endblock%}
 {%block title%}{{page.title}} - {{page.get_parent.get_parent.title}}{%endblock%}
-{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+{%block navbargenerator%}<li><a href='/'>Technical Board Home</a></li><li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_parent.get_children %}
 {%ifequal pgc.slug page.get_parent.slug%}
 <li class='active'><a href="/{{page.get_parent.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
@@ -170,3 +170,21 @@ width:100%;
 <br>
 <br>
 {% endblock %}
+{%block socialicons%}
+          {%if page.get_parent.get_parent.specific.facebook_link%}
+          <a href="{{page.get_parent.get_parent.specific.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.twitter_link%}
+          <a href="{{page.get_parent.get_parent.specific.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.youtube_link%}
+          <a href="{{page.get_parent.get_parent.specific.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.googleplus_link%}
+          <a href="{{page.get_parent.get_parent.specific.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.emailaddress%}
+          <a href="mailto:{{page.get_parent.get_parent.specific.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+          {%endif%}
+
+{%endblock%}

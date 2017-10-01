@@ -7,7 +7,7 @@
 {%block slugurl%}{{page.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.title}}{%endblock%}
 {%block title%}{{page.title}} - {{page.get_parent.title}}{%endblock%}
-{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+{%block navbargenerator%}<li><a href='/'>Technical Board Home</a></li><li><a href='/' id='homelink'>Home</a></li>
 
 {%for pgc in page.get_parent.get_children %}
 {%ifequal pgc.slug page.slug%}
@@ -35,14 +35,29 @@ text-align-last: center;
 font-family: 'Asap', sans-serif;
 font-size:30px; 
 }
-.user{
+.user-detail{
+font-size:20px;
+font-family:'Asap',sans-serif;
+margin-top:15px;
+margin-bottom:15px;
+}
+.card {
+text-align:center;
 padding-top:15px;
-	border:1px solid black;
-	text-align:center;
+padding-left:10px;
+padding-right:10px;
+padding-bottom:10px;
+margin:auto;
+margin-bottom:10px;
+margin-top:10px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.user-image{
-	max-width:100%;
+
+h3{
+font-size:20px;
+font-family:'Asap',sans-serif;
 }
+
 {%endblock%}
 
 {% block content %}
@@ -52,17 +67,43 @@ padding-top:15px;
 
 
 
-
 <div class="row margin-setter">
 	{% for i in members%}
-	<div class="col-xs-4 user">
-		<img src="/media/{{ i.profile.display_picture }}" class="user-image" width="300px">
-		<div> 	{{ i.profile.user.first_name }} {{ i.profile.user.last_name }}</div> 
-		<div> 	Roll No. : {{ i.profile.rollno }}</div> 
-		<div> 	Phone No. : {{ i.profile.phoneno }}</div> 
-		<div> 	Email : {{ i.profile.user.email }}</div> 
-	</div>      
+	<div class="col-xs-12 col-sm-6 col-md-4">
+		<div class="card">
+		<img src="/media/{{ i.profile.display_picture }}" alt="Jane" style="max-width:100%">
+		<h3>{{ i.profile.user.first_name }} {{ i.profile.user.last_name }}</h3>
+		<div class="user-detail">
+			Roll No. : {{ i.profile.rollno }} <br> Phone No. : {{ i.profile.phoneno }}<br>{%if i.profile.user.email%}{{ i.profile.user.email }}{%else%}No Email Provided{%endif%}<br>
+			<a href="http://facebook.com" class="btn-primary btn-lg btn" target="_alt">Facebook</a>
+		</div>
+	</div>
+	</div>
+
 	{% endfor %}
 </div>
+
+<br>
 <br>
 {% endblock %}
+
+
+
+{%block socialicons%}
+{%if page.get_parent.specific.facebook_link%}
+<a href="{{page.get_parent.specific.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+{%endif%}
+{%if page.get_parent.specific.twitter_link%}
+<a href="{{page.get_parent.specific.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+{%endif%}
+{%if page.get_parent.specific.youtube_link%}
+<a href="{{page.get_parent.specific.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+{%endif%}
+{%if page.get_parent.specific.googleplus_link%}
+<a href="{{page.get_parent.specific.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+{%endif%}
+{%if page.get_parent.specific.emailaddress%}
+<a href="mailto:{{page.get_parent.specific.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+{%endif%}
+
+{%endblock%}

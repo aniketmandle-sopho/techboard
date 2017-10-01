@@ -9,11 +9,15 @@
 {%block name%}Technical Board{%endblock%}
 {%block navbargenerator%}<li class="active"><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_children %}
+{%ifequal pgc.slug 'tags'%}{%else%}
 <li><a href="/{{pgc.slug}}">{{pgc.title}}</a></li>
-
+{%endifequal%}
 {%endfor%}
 
 {%endblock%}
+
+
+
 {%block customstyles%}
 
 .intro{
@@ -91,6 +95,7 @@ margin-left:10px;
 {% block content %}
 
 <div class="container">
+  <img class="img-responsive" href="">
   <div id="myCarousel" class="carousel slide" data-ride="carousel" style="position:relative;">
     <ol class="carousel-indicators">
         {% for block in page.slideshow %}
@@ -149,7 +154,7 @@ margin-left:10px;
         {% for item in aevent  %} 
     <div class="col-xs-6 events">
       <div class="col-md-12 activeevent">
-        <h3 class="activehead"> {{item.page.get_parent}} </h3>
+        <a href="/{{item.page.get_parent.slug}}" style="text-decoration:none;"><h3 class="activehead"> {{item.page.get_parent}} <i class="fa fa-external-link" aria-hidden="true"></i></h3></a>
         <div class='intro2' style="font-size:25px;" >{{ item.title }} </div>
         <p class="info">Event Starts At :{{ item.start }}<br>
         Event Ends At :{{ item.end }}<br>
@@ -166,3 +171,22 @@ margin-left:10px;
     <br>
 {% endblock %}
         
+        
+{%block socialicons%}
+          {%if page.facebook_link%}
+          <a href="{{page.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.twitter_link%}
+          <a href="{{page.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+          {%endif%}
+          {%if page.youtube_link%}
+          <a href="{{page.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.googleplus_link%}
+          <a href="{{page.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.emailaddress%}
+          <a href="mailto:{{page.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+          {%endif%}
+
+{%endblock%}

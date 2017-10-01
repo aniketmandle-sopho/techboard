@@ -6,7 +6,7 @@
 {%block title%}Album - {{page.get_parent.get_parent.title}}{%endblock%}
 {%block slugurl%}{{page.get_parent.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.get_parent.title}}{%endblock%}
-{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+{%block navbargenerator%}<li><a href='/'>Technical Board Home</a></li><li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_parent.get_children %}
 {%ifequal pgc.slug page.get_parent.slug%}
 <li class='active'><a href="/{{page.get_parent.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
@@ -14,10 +14,22 @@
 <li><a href="/{{page.get_parent.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
 {%endifequal%}
 {%endfor%}
+{%endblock%}
+{%block addmeta%}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">      
+{%load static%}
+<link href="{%static 'css/css'%}" rel="stylesheet">
+<link href="{%static 'css/css(1)'%}" rel="stylesheet">
+<link rel="stylesheet" href="{%static 'css/magnific-popup.css'%}">
+
+<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
 
 {%endblock%}
 
+
 {%block customstyles%}
+
 h1{
 text-align:center;
 font-family: 'Asap', sans-serif;
@@ -28,81 +40,97 @@ padding:5px;
 margin-left:20px;
 margin-right:20px;
 text-align: justify;
-    -moz-text-align-last: center;
-    text-align-last: center;
+-moz-text-align-last: center;
+text-align-last: center;
 
 font-family: 'Asap', sans-serif;
 font-size:30px; 
 }
-
-.images{
-position:relative;
-margin-top:15px;
-margin-bottom:15px;
-}
-.image{
-max-width:100%;
-border:1px solid #666666;
-}
-
-.items{
-    display:flex;
-}
-.photosrow{
-display:flex;
-flex-wrap:wrap;
-align-items:center;
-
-}
-
 {%endblock%}
-{% block content %}
-<!--http://docs.wagtail.io/en/v1.9/topics/writing_templates.html    responsive embeds  for proper stylin-->
+{%block content%}
 <br>
 
 <h1 class="margin-setter">{{ page.title }}</h1>
 <div class='intro margin-setter'>{{ page.desc|richtext }}</div>
-<div class='row photosrow margin-setter'>
-    {% for block in page.body %}
 
-        {% if block.block_type == 'image' %}
-            <div class='col-xs-6 images'>
-                {%image block.value fill-1280x720-c100 as tmp%}
-                <img src='{{tmp.url}}' data-toggle="modal" data-target="#myModal" id="{{forloop.counter0}}"class='image' width='100%'/>
-            </div>
-        {%else%}
-            <div class='col-xs-6 images'>
-                <div class="embed-responsive embed-responsive-16by9">
-                    {%embed block.value.url%}
-                 </div>
-            </div>
-        {% endif %}      
-    {% endfor %}
+
 </div>
-<script type="text/javascript">
-var x;
-$(document).ready(function () {
-    
-        $('#myModal').on('show.bs.modal', function (e) {
-            var image = $(e.relatedTarget).attr('src');
-            x = image.substr(0,7) + 'original_'+image.substr(7);
-            x = x.slice(0,-31) + 'jpg';
-            $(".img-responsive").attr("src", x);
-        });
-});
-</script>
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog" >
-        <div class="modal-content">
-            <div class="modal-body">
-                <img class="img-responsive" src="" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+<!-- Main -->
+
+<div class="row margin-setter">
+
+    {% for block in page.body %}
+    {%if forloop.counter0|divisibleby:2%}
+</div>
+<div class="row margin-setter">
+    {%endif%}
+    {% if block.block_type == 'image' %}
+    <div class="col-md-6">
+        <a href="#test-popup-{{forloop.counter0}}" class="open-popup-link">
+            {%image block.value fill-1280x720-c100 as tmp%}
+            <img src='{{tmp.url}}' class='image img-responsive' width='100%'/>
+        </a>
+        <div id="test-popup-{{forloop.counter0}}" class="white-popup mfp-hide">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="pop-up-color">
+                        <div class="col-md-12 p-l-0 p-r-0">
+                            {%image block.value original as tmp%}
+                            <img src='{{tmp.url}}' class='image img-responsive' />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="col-md-6" style="padding-top:15px">
+        <a href="#test-popup-{{forloop.counter0}}" class="open-popup-link">
+            <div class="embed-responsive embed-responsive-16by9" >
+                {%embed block.value.url%}
+            </div>
+        </a>
+        <div id="test-popup-{{forloop.counter0}}" class="white-popup mfp-hide">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="pop-up-color">
+                        <div class="col-md-12 p-l-0 p-r-0">
+                         <div class="embed-responsive embed-responsive-16by9">
+                            {%embed block.value.url%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>   
+{%endif%}   
+{% endfor %}
 </div>
- <br>
-{% endblock %}
-<!---->
+<script src="{% static 'js/jquery-3.1.0.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js'%}"></script>
+<script src="{% static 'js/script.js'%}"></script>
+<br>
+{%endblock%}
+
+
+{%block socialicons%}
+          {%if page.get_parent.get_parent.specific.facebook_link%}
+          <a href="{{page.get_parent.get_parent.specific.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.twitter_link%}
+          <a href="{{page.get_parent.get_parent.specific.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.youtube_link%}
+          <a href="{{page.get_parent.get_parent.specific.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.googleplus_link%}
+          <a href="{{page.get_parent.get_parent.specific.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.get_parent.specific.emailaddress%}
+          <a href="mailto:{{page.get_parent.get_parent.specific.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+          {%endif%}
+
+{%endblock%}

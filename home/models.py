@@ -79,4 +79,4 @@ class HomePage(Page):
         ImageChooserPanel('feed_image'),
     ]
     
-    subpage_types = ['clubHomePage.clubHomePage']
+    subpage_types = ['clubHomePage.clubHomePage','story.StoryTagIndexPage']

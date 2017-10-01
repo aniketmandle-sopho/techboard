@@ -7,7 +7,7 @@
 {%block slugurl%}{{page.get_parent.slug}}{%endblock%}
 {%block name%}{{page.get_parent.title}}{%endblock%}
 {%block title%}Stories - {{page.get_parent.title}}{%endblock%}
-{%block navbargenerator%}<li><a href='/' id='homelink'>Home</a></li>
+{%block navbargenerator%}<li><a href='/'>Technical Board Home</a></li><li><a href='/' id='homelink'>Home</a></li>
 {%for pgc in page.get_parent.get_children %}
 {%ifequal pgc.slug page.slug%}
 <li class='active'><a href="/{{page.get_parent.slug}}/{{pgc.slug}}">{{pgc.title}}</a></li>
@@ -36,92 +36,145 @@ font-family: 'Asap', sans-serif;
 font-size:30px;	
 }
 .heading{
-	text-align:center;
+text-align:center;
 font-family: 'Asap', sans-serif;
 font-size:40px;
 }
 .eventrow{
-	margin:5px;
+margin:5px;
 }
 
 .activeevent{
-	position:relative;
-	padding:0px;
-	border:1px solid black;
-	border-radius:5px;
+position:relative;
+padding:0px;
+border:1px solid black;
+border-radius:5px;
 }
 .inactiveevent{
-	position:relative;
-	padding:0px;
-	border:1px solid #6a7e85;
-	border-radius:5px;
+position:relative;
+padding:0px;
+border:1px solid #6a7e85;
+border-radius:5px;
 }
 .activehead{
-	font-size:30px;
-	text-align:center;
-	font-family: 'Raleway', sans-serif;
-	padding:10px;
-	margin-top:0px;
-	margin-left:0px;
-	margin-right:0px;
-	background-color:black;
-	color:white;
+font-size:30px;
+text-align:center;
+font-family: 'Raleway', sans-serif;
+padding:10px;
+margin-top:0px;
+margin-left:0px;
+margin-right:0px;
+background-color:black;
+color:white;
 }
 .info, .intro2{
-padding-left:10px;
-padding-right:10px;
+padding-left:25px;
+padding-right:25px;
 font-size:18px;
-	font-family: 'Raleway', sans-serif;
-	text-align: justify;
+font-family: 'Raleway', sans-serif;
+text-align: justify;
 -moz-text-align-last: center;
 text-align-last: center;
 }
 .post-details{
 margin-left:10px;
-    font-size:18px;
-    font-family:'Raleway',sans-serif;
+font-size:18px;
+font-family:'Raleway',sans-serif;
+text-align:center;
 }
+
+
+
+.hideContent {
+overflow: hidden;
+line-height: 1em;
+height: 4em;
+}
+
+.showContent {
+line-height: 1em;
+height: auto;
+}
+.showContent{
+height: auto;
+}
+
+.show-more {
+padding: 10px 0;
+text-align: center;
+}
+
 {%endblock%}
 
 {% block content %}
-	<br>
-	<h1 class="margin-setter">{{ page.title }}</h1>
-	<div class="intro margin-setter">{{ page.intro|richtext }}</div>
-	<div class="row eventrow margin-setter">
+<br>
+<h1 class="margin-setter">{{ page.title }}</h1>
+<div class="intro margin-setter">{{ page.intro|richtext }}</div>
+{%if storypages%}
+<div class="row eventrow margin-setter">
 	{% for post in storypages.specific %}
 	{%if forloop.counter0|divisibleby:2 %}
-    </div>
-    <div class="row eventrow margin-setter">
-    {%endif%}	
-		<div class="col-xs-6 events">
-			<div class="col-md-12 activeevent">
-				<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="activehead"> {{ post.title }} <i class="fa fa-external-link" aria-hidden="true"></i></h3>
-				</a>
-				<div class='intro2'>{{ post.intro}} </div>
+</div>
+<div class="row eventrow margin-setter">
+	{%endif%}	
+	<div class="col-xs-6 events">
+		<div class="col-md-12 activeevent">
+			<a href="{%pageurl post%}" style="text-decoration:none;"><h3 class="activehead"> {{ post.title }} <i class="fa fa-external-link" aria-hidden="true"></i></h3>
+			</a>
+            <div class="intro2 content hideContent">
+                {{ post.intro }}
+            </div>
+            <div class="show-more">
+                <a href="#">Show more</a>
+            </div>
+			<p class="post-details"><b>Posted By</b> : {{ post.author }}<br><b>Posted On</b> : {{ post.date }}</p>		
 
-			<p class="post-details"><b>Posted By</b> : {{ post.author }}<br><b>Posted On</b> : {{ post.date }}<br><b>Posted In</b> :
-        {% with categories=post.categories.all %}{% if categories %}{% for category in categories %}
-            {% image category.icon fill-28x28 style="vertical-align: middle" %}
-            {{ category.name }}
-            &nbsp;
-        {% endfor %}{% endif %}{% endwith %}
-    </p>		
-    {% if post.tags.all.count %}
-        <div class="tags" style="margin:10px;"><h3 style=" font-family:'Raleway', sans-serif;">Tags <i class="fa fa-tags" style="color:#337ab7" aria-hidden="true"> &nbsp;:</i> </h3>
-            &nbsp;
-            {% for tag in post.tags.all %}
-                <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="btn btn-primary ">{{ tag }}</a>
-            {% endfor %}
-            &nbsp;
-        </div>
-    {% endif %}     	
-		     </div>
 		</div>
+	</div>
 	{% endfor %}
 </div>
+{%else%}
+<div class="intro"> Look Out This Space, while we prepare some stuff for you. </div>
+{%endif%}
+<br>
+<br>
+<script type="text/javascript">
+$(".show-more a").on("click", function() {
+    var $this = $(this); 
+    var $content = $this.parent().prev("div.content");
+    var linkText = $this.text().toUpperCase();    
+    
+    if(linkText === "SHOW MORE"){
+        linkText = "Show less";
+        $content.switchClass("hideContent", "showContent", 400);
+    } else {
+        linkText = "Show more";
+        $content.switchClass("showContent", "hideContent", 400);
+    };
 
+    $this.text(linkText);
+    return false;
+});
 
-	<br>
-	<br>
+</script>
 {% endblock %}
 
+
+{%block socialicons%}
+          {%if page.get_parent.specific.facebook_link%}
+          <a href="{{page.get_parent.specific.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.specific.twitter_link%}
+          <a href="{{page.get_parent.specific.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.specific.youtube_link%}
+          <a href="{{page.get_parent.specific.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.specific.googleplus_link%}
+          <a href="{{page.get_parent.specific.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%endif%}
+          {%if page.get_parent.specific.emailaddress%}
+          <a href="mailto:{{page.get_parent.specific.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+          {%endif%}
+
+{%endblock%}
