@@ -89,7 +89,28 @@ margin-left:10px;
 .events{
     padding-top:20px;
     padding-bottom:20px;
+}/*
+.logo-b{
+ position:absolute; z-index:15; width:100%;
+  text-align:center;
+  top:40%;
+  margin:0px;
+  padding-top:20px;
+  padding-bottom:20px;
+  bottom:40%;
+  height:20%;
 }
+.logo-a{
+position:absolute;
+  color:white;
+  margin-left:0;
+  margin-right:0;
+  width:100%;
+  top:10%;
+  bottom:10%;
+  height:100%;
+ font-size:60px;
+} */
 {%endblock%}
 
 {% block content %}
@@ -111,8 +132,14 @@ margin-left:10px;
     </ol>
 
     <div class="carousel-inner">
-
-
+<!--<div class="logo-b" style="z-index:16">
+<h1 class="logo-a"> {{page.title}}</h1>
+</div>
+<div class="logo-b" style="opacity:0.2;   background-color:white;
+">
+<h1 class="logo-a"> {{page.title}}</h1>
+</div>
+-->  
         {% for block in page.slideshow %}
         {% if block.block_type == 'Image' %}
 
@@ -125,7 +152,7 @@ margin-left:10px;
           </div>
       </div>
       {%else%}
-      <div class="item"> 
+      <div class="item">
           {%image block.value.image fill-5120x2867-c100 as tmp%}
           <img src='{{tmp.url}}'  style='width:100%' />
           <div class="carousel-caption">

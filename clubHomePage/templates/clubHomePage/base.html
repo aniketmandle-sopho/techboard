@@ -103,7 +103,7 @@ body {
 </body>
 
 <div class="footer-ghost"></div>
-<footer class="footer" style="padding:0px; width:100%;">
+<footer class="footer" style="padding:0px; width:100%; overflow:hidden;">
 	<div class="contain">
 		<div class="row">
 			<div class="col-xs-6">
@@ -122,12 +122,17 @@ body {
 				<h2 class='title'>Contact us at</h2>
 				<div class="social-icons">
 
-{%block socialicons%}
-{%endblock%}
+					{%block socialicons%}
+					{%endblock%}
 				</div>
 			</div>
-
 		</div>
+		<div class="row" >
+			<div class="col-xs-12" style="text-align:center;">
+				Developed and Maintained By : Apurva N. Saraogi And Aniket Mandle 
+			</div>
+		</div>
+		<hr>
 	</div>
 </footer>
 
