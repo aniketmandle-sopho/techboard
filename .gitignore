@@ -3,3 +3,4 @@ __pycache__/
 media/*
 logs/
 logs/*
+techboard/settings/dev.py

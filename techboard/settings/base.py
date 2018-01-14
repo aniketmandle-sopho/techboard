@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+#Add allowed hosts here, i.e. the place where you want to host's address
 ALLOWED_HOSTS = ['localhost','127.0.0.1']
 # Application definition
 
@@ -112,7 +113,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC+05:30'
 
 USE_I18N = True
 
