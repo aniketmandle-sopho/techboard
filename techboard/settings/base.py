@@ -107,13 +107,26 @@ DATABASES = {
     }
 }
 
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Name of Schema',
+        'USER': 'username to access database',
+        'PASSWORD': 'password',
+        'HOST': 'localhost(address where it is going to be used)',
+        'PORT': 'sql default port',
+    }
+}
+
+'''
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC+05:30'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
