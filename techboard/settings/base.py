@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'users',
     'events',
     'achievements',
-    'clubHomePage',
+    'club_home',
     
 
     'wagtail.wagtailforms',
