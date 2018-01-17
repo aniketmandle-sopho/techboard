@@ -1,5 +1,6 @@
 #Custom
 db.sqlite3
+media/*
 techboard/settings/dev.py
 
 # Byte-compiled / optimized / DLL files
