@@ -5,7 +5,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.blocks import StructBlock, TextBlock, TextBlock
+from wagtail.wagtailcore.blocks import StructBlock, TextBlock
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
@@ -22,10 +22,10 @@ class AchievementsIndexPage(Page):
 	carousel = StreamField(
 		[
 			('image', ImageChooserBlock()),
-			('quotation', blocks.StructBlock(
+			('quotation', StructBlock(
 				[
-					('text', blocks.TextBlock()),
-					('author', blocks.TextBlock()),
+					('text', TextBlock()),
+					('author', TextBlock()),
 				])
 			),
 			('video', EmbedBlock()),
