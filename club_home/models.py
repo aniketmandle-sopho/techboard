@@ -74,7 +74,7 @@ class ClubHomePage(Page):
 		# Update context to include only published posts, ordered by reverse-chron
 		context = super(ClubHomePage, self).get_context(request)
 		eveindpag = self.get_children().live().type(event.EventIndexPage)
-		aevent = event.Events.objects.filter(Q(page=eveindpag)&Q(IsActive=1)).order_by('start')[:1]
+		aevent = event.Events.objects.filter(Q(page=eveindpag)&Q(is_active=1)).order_by('start')[:1]
 		context['aevent'] = aevent
 		stindpag = self.get_children().live().type(StoryIndexPage).first()
 		astory = stindpag.get_children().live().order_by('-first_published_at')[:1]
