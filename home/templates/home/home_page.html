@@ -192,28 +192,28 @@ position:absolute;
   {% endfor %}
     </div>
 <h2 class="heading margin-setter" >About Us</h2>
-    <div class='intro margin-setter'>{{ page.AboutUs|richtext }}</div>
+    <div class='intro margin-setter'>{{ page.about_us|richtext }}</div>
 <h2 class="heading margin-setter" >Vision</h2>
-    <div class='intro margin-setter'>{{ page.Vision|richtext }}</div>
+    <div class='intro margin-setter'>{{ page.vision|richtext }}</div>
     <br>
 {% endblock %}
         
         
 {%block socialicons%}
-          {%if page.facebook_link%}
-          <a href="{{page.facebook_link}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%if page.facebook%}
+          <a href="{{page.facebook}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
           {%endif%}
-          {%if page.twitter_link%}
-          <a href="{{page.twitter_link}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
+          {%if page.twitter%}
+          <a href="{{page.twitter}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
           {%endif%}
-          {%if page.youtube_link%}
-          <a href="{{page.youtube_link}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%if page.youtube%}
+          <a href="{{page.youtube}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
           {%endif%}
-          {%if page.googleplus_link%}
-          <a href="{{page.googleplus_link}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
+          {%if page.googleplus%}
+          <a href="{{page.googleplus}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
           {%endif%}
-          {%if page.emailaddress%}
-          <a href="mailto:{{page.emailaddress}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
+          {%if page.email%}
+          <a href="mailto:{{page.email}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
           {%endif%}
 
 {%endblock%}

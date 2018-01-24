@@ -6,15 +6,21 @@ from django.db import models
 # Create your models here.
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailembeds.blocks import EmbedBlock
+
+
 
 class GalleryPage(Page):
 	intro = RichTextField(blank=True)
+
+	content_panels = Page.content_panels + [FieldPanel('intro', classname="full")]
+	
+	subpage_types = ['gallery.Album']
 
 	def get_context(self, request):
 		context = super(GalleryPage, self).get_context(request)
@@ -22,9 +28,7 @@ class GalleryPage(Page):
 		context['albums'] = albums
 		return context
 
-	content_panels = Page.content_panels + [FieldPanel('intro', classname="full")]
-	
-	subpage_types = ['gallery.Album']
+
 
 class Album(Page):
 	cover = models.ForeignKey(
@@ -43,5 +47,4 @@ class Album(Page):
 		FieldPanel('desc', classname="full"),
 		ImageChooserPanel('cover'),    
 		StreamFieldPanel('body'),
-
-    ]
+	]
