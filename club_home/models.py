@@ -77,6 +77,7 @@ class ClubHomePage(Page):
 		aevent = event.Events.objects.filter(Q(page=eveindpag)&Q(is_active=1)).order_by('start')[:1]
 		context['aevent'] = aevent
 		stindpag = self.get_children().live().type(StoryIndexPage).first()
-		astory = stindpag.get_children().live().order_by('-first_published_at')[:1]
-		context['astory'] = astory
+		if stindpag is not None:
+			astory = stindpag.get_children().live().order_by('-first_published_at')[:1]
+			context['astory'] = astory
 		return context
