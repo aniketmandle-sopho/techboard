@@ -27,10 +27,6 @@ from taggit.models import TaggedItemBase
 class EventIndexPage(Page):
 	intro = RichTextField(max_length=250)
 
-	content_panels = Page.content_panels + [
-		FieldPanel('intro'),
-		InlinePanel('events', label="Event"),
-	]
 
 	def get_context(self, request):
 		# Update context to include only published posts, ordered by reverse-chron
@@ -41,6 +37,10 @@ class EventIndexPage(Page):
 		context['inactive_events'] = inactive_events
 		return context
 
+	content_panels = Page.content_panels + [
+		FieldPanel('intro'),
+		InlinePanel('events', label="Event"),
+	]
 
 
 class Events(Orderable):
