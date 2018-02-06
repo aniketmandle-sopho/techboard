@@ -48,7 +48,8 @@ class StoryPageTag(TaggedItemBase):
 class StoryPage(Page):
     date = models.DateField("Post date")
 
-    intro = models.CharField(max_length=250, help_text="Listen up buddy This thing is non editable Yeah!")
+    intro = models.CharField(max_length=250)
+    # intro = models.CharField(max_length=250, help_text="Listen up buddy This thing is non editable Yeah!")
     
     author = models.CharField(max_length=250,default="Anonymous")
     
