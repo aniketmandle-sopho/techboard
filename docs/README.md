@@ -151,6 +151,16 @@ server {
 
 }
 ```
+```
+sudo nano /etc/nginx/nginx.conf
+//Add the follwing line in http section to increase the default upload size
+http{
+    ...
+    ...
+   	client_max_body_size 20M;
+   	...
+   	}
+```
 Make a link to sites enabled in NGINX using this command and we will enable firewall for NGINX and check for syntax error's in NGINX file using -t flag.
 ```
 sudo ln -s /etc/nginx/sites-available/techboard /etc/nginx/sites-enabled/
