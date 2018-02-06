@@ -1,5 +1,6 @@
-##Procedure for Installation
+## Procedure for Installation
 Add proxy settings ( if any ) to the terminal by editing bashrc file
+
 **Install Python and Nginx**
 ```
 sudo apt-get update
@@ -13,6 +14,7 @@ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F2
 sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu xenial main'
 ```
 Replace the link in the last line with the link you get on the [Link](https://downloads.mariadb.org/mariadb/repositories/)  by  select the appropriate server and Ubuntu version. The shown example is for Ubuntu 16.04.
+
 After this execute the following commands.
 
 ```
@@ -25,7 +27,7 @@ During installation it will ask you to set a username and password for accessing
 openssl rand -base64 32
 ```
 
-#Pending Below This
+# Pending Below This
 git clone https://github.com/aniketmandle-sopho/techboard.git
 
 pip install --upgrade pip
