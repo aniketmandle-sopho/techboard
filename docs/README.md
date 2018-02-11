@@ -11,11 +11,11 @@ Working on it.
 ## Documentation
 Working on it.
 
-##How to contribute
+## How to contribute
 Currently, we are working on relasing v1.0
 Once that is done, we will figure this out. 
 
-##Contributors
+## Contributors
 Aniket Mandle
 Apurva N Saraogi
 Raghuram Krishnaswami
