@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'events',
     'achievements',
     'club_home',
-    
+
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'bakery',
+    'wagtailbakery',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +154,10 @@ ALLOWED_HOSTS = ['*']
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'Q7bz7wVf9P0gePnGPyCavgd3q+ZWPhHv04dk3HYRzJ8='
+
+BAKERY_MULTISITE = True
+BUILD_DIR='/var/www/html/'
+
+BAKERY_VIEWS = (
+    'wagtailbakery.views.AllPublishedPagesView',
+)

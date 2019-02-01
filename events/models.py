@@ -53,7 +53,10 @@ class Events(Orderable):
 	start = models.DateTimeField("Start")
 
 	end = models.DateTimeField("end")
-
+	thumbnail = models.ForeignKey(
+		'wagtailimages.Image',
+		on_delete=models.PROTECT, related_name='+'
+	) 
 	venue = models.CharField(max_length=200)
 
 	is_active = models.BooleanField(blank=True,default=True)
@@ -62,6 +65,7 @@ class Events(Orderable):
 		FieldPanel('is_active'),
 		FieldPanel('title'),
         FieldPanel('intro'),
+        FieldPanel('thumbnail'),
         MultiFieldPanel([
 	        FieldPanel('start'),
 	        FieldPanel('end'),

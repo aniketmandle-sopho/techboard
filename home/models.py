@@ -41,7 +41,7 @@ class HomePage(Page):
         blank=True)
 
     about_us = RichTextField(blank=True)
-
+    tagline = models.CharField(max_length=200, blank = True)
     vision = RichTextField(blank=True)
 
     facebook = models.CharField(max_length=200,default='')  
@@ -72,6 +72,7 @@ class HomePage(Page):
         ], heading='Contact Links'),
         StreamFieldPanel('slideshow'),
         FieldPanel('about_us'),
+        FieldPanel('tagline'),
         FieldPanel('vision'),
     ]
 
@@ -85,6 +86,6 @@ class HomePage(Page):
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super(HomePage, self).get_context(request)
-        aevent = Events.objects.filter(Q(is_active=1)).order_by('start')[:4]
+        aevent = Events.objects.filter(Q(is_active=1)).order_by('start')[:6]
         context['aevent'] = aevent
         return context

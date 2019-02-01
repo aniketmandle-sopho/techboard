@@ -6,278 +6,372 @@
 {% block body_class %}template-eventsindexpage{% endblock %}
 {%block title%}{{ page.title }}{%endblock%}
 
-{%block customstyles%}
 
-.intro{
-  margin-left:20px;
-  margin-right:20px;
-  text-align: justify;
-  text-align-last : left;
-
-  font-family: 'Raleway', sans-serif;
-  font-size:20px;; 
-  padding-top:20px;
-  padding-bottom:20px;
-
-}
-
-.heading{
-    text-align:center;
-  font-family: 'Asap', sans-serif;
-  font-size:40px;
-}
-.eventrow{
-  margin:5px;
-}
-
-.activeevent{
-  position:relative;
-  padding:0px;
-  border:1px solid black;
-  border-radius:5px;
-}
-.activehead{
-  font-size:30px;
-  text-align:center;
-  font-family: 'Raleway', sans-serif;
-  padding:10px;
-  margin-top:0px;
-  margin-left:0px;
-  margin-right:0px;
-  background-color:black;
-  color:white;
-}
-.info, .intro2{
-padding-left:10px;
-padding-right:10px;
-font-size:18px;
-  font-family: 'Raleway', sans-serif;
-  text-align: justify;
--moz-text-align-last: center;
-text-align-last: center;
-}
-
-.carousel{
-  padding:0px;
-  width:100%;
-}
-.carousel-inner{
-  width:100%;
-}
-.container{
-  padding:0px;
-  margin:0px;
-  width:100%; 
-}
-.post-details{
-margin-left:10px;
-    font-size:18px;
-    font-family:'Raleway',sans-serif;
-}
-
-.events{
-    padding-top:20px;
-    padding-bottom:20px;
-}/*
-.logo-b{
- position:absolute; z-index:15; width:100%;
-  text-align:center;
-  top:40%;
-  margin:0px;
-  padding-top:20px;
-  padding-bottom:20px;
-  bottom:40%;
-  height:20%;
-}
-.logo-a{
-position:absolute;
-  color:white;
-  margin-left:0;
-  margin-right:0;
-  width:100%;
-  top:10%;
-  bottom:10%;
-  height:100%;
- font-size:60px;
-} */
-
-.rich-text img {
-    max-width: 100%;
-    height: auto;
-}
-
-.responsive-object {
-    position: relative;
-}
-
-.responsive-object iframe,
-.responsive-object object,
-.responsive-object embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-{%endblock%}
-
-
-{%block custom-navigation%}
-<header style="position:relative;">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" id='main-header' href="/home">ClubName</a>
+{%block content%}
+<header class="header text-white h-fullscreen p-0 overflow-hidden" data-overlay="7">
+  <video class="bg-video" src="static/img/video/{{page.title}}.mp4" poster="static/img/video/1.jpg" autoplay loop></video>
+  <div class="container text-center">
+    <div class="row h-100">
+      <div class="col-lg-8 mx-auto align-self-center pt-10">
+        <div class="col-lg-8 d-none d-md-inline-block d-lg-inline-block" style="display: inline-block">
+          <img src="static/img/logo-light.png" alt="img" height="225" width="225" style="-webkit-filter: drop-shadow(3px 3px 15px #232323); filter: drop-shadow(3px 3px 15px #232323);" >
+        </div>
+        <h1 class="display-2 fw-500">{{page.title}}</h1>
+        <p class="lead-2 mt-2 mb-8">{{page.tagline}}</p>
       </div>
-      <ul class="nav  navbar-nav navbar-right">
-        <li class="active"><a href='/' id='homelink'>Home</a></li>
+      <div class="col-12 align-self-end text-center pb-10">
+        <a class="scroll-down-3 scroll-down-white" href="#Aboutus"><span></span><span></span><span></span></a>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- END Header -->
+<!-- Header -->
+<header class="header" id="Aboutus">
+  <div class="container">
+    <div class="row align-items-center h-100">
+      <div class="col-md-10 mx-auto">
+        <h1  class="display-3 fw-400" style="text-align: center ;margin-bottom: 20px; color: black">About us</h1><br>
+        <div class="lead-2">
+          {{page.about_us | richtext}}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- /.header -->
+<!-- Main Content -->
+<main class="main-content">
+      <!--
+        |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+        | Populate the page
+        |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+        !-->
+        {% if aevent%}
+        <section class="section"  >
 
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clubs<span class="caret"></span></a>
-  <ul class="dropdown-menu">
-{%for pgc in page.get_children %}
-{%ifequal pgc.slug 'tags'%}{%else%}
-<li><a href="/{{pgc.slug}}">{{pgc.title}}</a></li>
-{%endifequal%}
-{%endfor%}
+          <div class="container">
+            <header class="section-header">
 
-    <!--
-    <li role="separator" class="divider"></li>
-    <li class="dropdown-header">Nav header</li>
-    <li><a href="#">Separated link</a></li>
-    <li><a href="#">One more separated link</a></li>
-  -->
-  </ul>
-</li>
+              <h2 class="display-3 fw-400">Upcoming Events</h2>
 
-        <!--<form id="searchform" action="/search/"  method='get' accept-charset="utf-8" class="navbar-form navbar-left">
-          <div class="input-group">
-            <input type="text" name='q' class="form-control" placeholder="Search">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
+            </header>
+
+
+
+            <div class="row gap-y mt-8 slider-arrows-circle-dark px-7"  data-provide="slider" data-slides-to-show="3" data-slides-to-scroll="1" data-arrows="true" data-autoplay="true" data-autoplay-speed="4000" >
+              {% for item in aevent  %} 
+
+              <div class="col-md-6 col-lg-4 d-inline">
+                <div class="card border hover-shadow-6">
+                  <a href="#">{%image item.thumbnail fill-320x180-c100 as tmp%}<img class="card-img-top" src="{{tmp.url}}" alt="Card image cap"></a>
+                  <div class="card-body">
+                    <div style="text-align: center">
+                      <h5 class="card-title">{{ item.title }}</h5></div>
+                      <p>
+                      <a href="/{{item.page.get_parent.slug}}">{{item.page.get_parent}}</a>
+                      <br>Starts at: {{item.start}}<br>Ends at: {{item.end}}<br> Location: {{item.venue}}
+                      </p>
+                      <div style="text-align: center">
+                        <a class="btn btn-outline-primary" href="#">Read More</a></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% endfor %}
+                </div>        
+              </div>  
+
+
+            </section>  
+            {%endif%}
+
+
+
+
+<!--  <section class="section"  >
+        <div class="container">
+          <header class="section-header">
+            <h2 class="display-3 fw-400" style="padding-top: 40px">Clubs</h2>
+          </header>
+          <!--<div class="row gap-y gap-3" data-shuffle="list">
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" text-align = "center" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Acumen.jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/Acumen2.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Acumen</h2>
+                  <p>Quiz Club</p>
+                </div>
+              </a>
+            </div>
+            
+            
+            <div class="col-12 col-lg-4 align-self-baseline" data-shuffle="item" data-groups="bag,box"  data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Aero.jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/AeromodellingClub.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Aeromodelling</h2>
+                  <p>Club</p>
+                </div>
+              </a>
+             </div>
+            
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="150">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Auto(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/GreenAutomobileClub.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Automobile</h2>
+                  <p>Club</p>
+                </div>
+              </a>
+            </div>
+            
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Coding(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/CodingClub(1).jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Coding</h2>
+                  <p>Club</p>
+                </div>
+              </a>
+            </div>
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Coding(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/ConsultingandAnalyticsClub.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Consulting and</h2>
+                  <p>Analytics Club</p>
+                </div>
+              </a>
+            </div>
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="150">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Electro(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/ElectronicsClub2.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Electronics</h2>
+                  <p>Club</p>
+                </div>
+              </a>
+            </div>
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/EDCworkshop(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/EDC.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>E-Cell</h2>
+                  <p></p>
+                </div>
+              </a>
+            </div>
+            
+            <div class="col-12 col-lg-4 align-self-center" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/equi(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/equinox.png" alt="screenshot" height="100px" width="100px">
+            <h2>Equinox</h2>
+                  <p>Astronomy Club</p>
+                </div>
+              </a>
+            </div>  
+            
+            <div class="col-12 col-lg-4 align-self-center" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="150">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Finance(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/FinanceandEconomics.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Finance and</h2>
+                  <p>Economics Club</p>
+                </div>
+              </a>
+            </div>
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/Prakritibg(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/Prakriti.png" alt="screenshot" height="100px" width="100px">
+            <h2>Prakriti</h2>
+                  <p>Club</p>
+                </div>
+              </a>
+            </div>
+            
+            
+            
+            <div class="col-12 col-lg-4" data-shuffle="item" data-groups="bag,box" data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a class="portfolio-1" href="#" data-toggle="modal" data-target="#modal-portfolio">
+                <img src="static/img/clubs intro/robotics(2).jpg" alt="screenshot">
+                <div class="portfolio-detail">
+                    <img src="static/img/clubs intro/RoboticsClub.jpg" alt="screenshot" height="100px" width="100px">
+            <h2>Robotics</h2>
+                  <p>Club</p>
+                </div>
+              </a>
+            </div>
+            
+            
+            
+          </div>-->
+        <!--  <div class="row gap-y-2" style="margin-top: -30px; margin-bottom: 30px">
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a href="../basic/resources/AcumenResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/Acumen3.jpg);background-size: 75%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style=" text-align: center;">Acumen : Quiz Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="50">
+              <a href="../basic/resources/AeroResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/AeromodellingClub.jpg);background-size: 65%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Aeromodelling Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a href="../basic/resources/AutoResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(../basic/static/img/resources/auto.jpg);background-size: 75%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Automobile Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a href="../basic/resources/CodingResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/codingclub.jpg);background-size: 75%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Coding Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="50">
+              <a href="../basic/resources/CnAResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/cna.jpg);background-size: 75%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Consulting and Analytics Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a href="../basic/resources/ElectronicsResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/ElectronicsClub2.jpg);background-size: 55%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Electronics Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a href="../basic/resources/EDCResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/EDC.jpg);background-size: 68%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Entrepreneurship Development Cell</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="50">
+              <a href="../basic/resources/EquinoxResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/equinox.png);background-size: 60%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Equinox : Astronomy Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="100">
+              <a href="../basic/resources/FnEResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/fne.jpg);background-size: 80%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Finance and Economics Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="00">
+              <a href="../basic/resources/PrakritiResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/Prakriti.png);background-size: 65%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Prakriti Club</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-12 col-lg-4 hover-shadow-4" style="grid-row-start: 3;grid-row-end: 4; grid-column-start: 3;grid-column-end: 4" data-aos="fade-up" data-aos-duration="250" data-aos-delay="50">
+              <a href="../basic/resources/RoboticsResources.html">
+                <div class="card text-white justify-content-end bg-img h-400" style="background-image: url(static/img/resources/RoboticsClub.jpg);background-size: 70%" data-scrim-bottom="5">
+                  <div class="card-body flex-grow-0">
+                    <h3 class="card-title fw-200" style="text-align: center;">Robotics Club</h3>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
-        </form>-->
-      </ul>
-    </div>
-  </nav>
-
-  <script type="text/javascript">
-  var slugurl = '/';
-  var clubname = '{{ page.title }}';
-  $('#main-header').attr('href',slugurl);
-  $('#homelink').attr('href',slugurl);
-  $('#main-header').text(clubname);
-  </script>
-  
-</header>
-{%endblock%}
+        </div>
+      </section>  -->
+      
 
 
-{% block content %}
 
-<div class="container">
-  <img class="img-responsive" href="">
-  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="position:relative;">
-    <ol class="carousel-indicators">
-        {% for block in page.slideshow %}
-        {% if block.block_type == 'Image' %}
-        {%ifequal forloop.counter0 0%}
-        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
-        {%else%}
-        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
-        {%endifequal%}
-        {% endif %}
-        {% endfor %} 
 
-    </ol>
-
-    <div class="carousel-inner">
-<!--<div class="logo-b" style="z-index:16">
-<h1 class="logo-a"> {{page.title}}</h1>
-</div>
-<div class="logo-b" style="opacity:0.2;   background-color:white;
-">
-<h1 class="logo-a"> {{page.title}}</h1>
-</div>
--->  
-        {% for block in page.slideshow %}
-        {% if block.block_type == 'Image' %}
-
-        {%ifequal forloop.counter0 0%}
-        <div class="item active">
-            {%image block.value.image fill-5120x2867-c100 as tmp%}
-            <img src='{{tmp.url}}' style='width:100%' />
-            <div class="carousel-caption">
-              <h3>{{block.value.caption}}</h3>
+      <hr width="10%">
+      <section class="section" >
+        <div class="container">
+          <header class="section-header">
+            <h2 class="display-3 fw-400">The Team</h2>
+            <hr>
+            <p class="lead">Meet the Technical Board</p>
+          </header>
+          <div class="row gap-y-2" >
+            <div class="col-md-4 team-2  hover-shadow-6"  data-aos="flip-left" data-aos-duration="500" data-aos-delay="00" data-aos-offset="00">
+              <a href="#">
+                <img src="static/img/avatar/chairman.jpg" alt="...">
+              </a>
+              <h5>Prof. Arnab Sarkar</h5>
+              <small>Chairman</small>
+              <p>Associate Professor <br>Department of Computer Science and Engineering <br></p>
+              <p>Contact: +91 361 258 3252<br><a class="nav-link" href="mailto:chrtb@iitg.ac.in" target = "_blank">Webmail: chrtb@iitg.ac.in</a></p>
+              <br>
+            </div>
+            <div class="col-md-4 team-2  hover-shadow-6" data-aos="flip-left" data-aos-duration="500" data-aos-delay="250" data-aos-offset="00">
+              <a href="#">
+                <img src="static/img/avatar/vamshi.jpg" alt="...">
+              </a>
+              <h5>A. Vamshi Krishna Reddy</h5>
+              <small>General Secretary</small>
+              <p>Contact: +91 814 215 1097<br><a class="nav-link" href="mailto:techsec@iitg.ac.in" target = "_blank">Webmail: techsec@iitg.ac.in</a></p>
+              <br>
+            </div>
+            <div class="col-md-4 team-2  hover-shadow-6" data-aos="flip-left" data-aos-duration="500" data-aos-delay="500" data-aos-offset="00">
+              <a href="#">
+                <img src="static/img/avatar/harsha.jpg" alt="...">
+              </a>
+              <h5>Sri Harsha Vadathya</h5>
+              <small>Events Manager</small>
+              <p>Contact: +91 918 293 8122<br><a class="nav-link" href="mailto:harsh170108037@iitg.ac.in" target = "_blank">Webmail: harsh170108037@iitg.ac.in</a></p>
+              <br>
+            </div>
           </div>
-      </div>
-      {%else%}
-      <div class="item">
-          {%image block.value.image fill-5120x2867-c100 as tmp%}
-          <img src='{{tmp.url}}'  style='width:100%' />
-          <div class="carousel-caption">
-              <h3>{{block.value.caption}}</h3>
-          </div>
-      </div>
-      {%endifequal%}
-      {% endif %}
-      {% endfor %} 
+        </div>
+      </section>
+    </main>
 
-
-  </div>
-
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-  </a>
-  </div>
-</div>
-<br>
-<div class="row eventrow margin-setter">
-        {% for item in aevent  %} 
-    <div class="col-xs-6 events">
-      <div class="col-md-12 activeevent">
-        <a href="/{{item.page.get_parent.slug}}" style="text-decoration:none;"><h3 class="activehead"> {{item.page.get_parent}} <i class="fa fa-external-link" aria-hidden="true"></i></h3></a>
-        <div class='intro2' style="font-size:25px;" >{{ item.title }} </div>
-        <p class="info">Event Starts At :{{ item.start }}<br>
-        Event Ends At :{{ item.end }}<br>
-        Location :{{ item.venue }}
-        </p>
-         </div>
-    </div>
-  {% endfor %}
-    </div>
-<h2 class="heading margin-setter" >About Us</h2>
-    <div class='intro margin-setter'>{{ page.about_us|richtext }}</div>
-<h2 class="heading margin-setter" >Vision</h2>
-    <div class='intro margin-setter'>{{ page.vision|richtext }}</div>
-    <br>
-{% endblock %}
-        
-        
-{%block socialicons%}
-          {%if page.facebook%}
-          <a href="{{page.facebook}}"><i class="contact-links fa fa-facebook fa-3x"  onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='white'"></i></a> &nbsp;
-          {%endif%}
-          {%if page.twitter%}
-          <a href="{{page.twitter}}"><i class="contact-links fa fa-twitter fa-3x" onmouseover="this.style.color='#00aced'" onmouseout="this.style.color='white'" ></i></a> &nbsp;
-          {%endif%}
-          {%if page.youtube%}
-          <a href="{{page.youtube}}"><i class="contact-links fa fa-youtube-play fa-3x" onmouseover="this.style.color='#bb0000'" onmouseout="this.style.color='white'"></i></a> &nbsp;
-          {%endif%}
-          {%if page.googleplus%}
-          <a href="{{page.googleplus}}"><i class="contact-links fa fa-google-plus fa-3x social-gp" onmouseover="this.style.color='#d34836'" onmouseout="this.style.color='white'"></i></a> &nbsp;
-          {%endif%}
-          {%if page.email%}
-          <a href="mailto:{{page.email}}"><i class="contact-links fa fa-envelope fa-3x" onmouseover="this.style.color='#fbbc05'" onmouseout="this.style.color='white'"></i></a> 
-          {%endif%}
-
-{%endblock%}
+    {%endblock%}

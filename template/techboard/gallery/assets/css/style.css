@@ -1,0 +1,225 @@
+.slideanim {
+    visibility:hidden;
+    visibility:visible\9;/*For old IE browsers IE6-8 */
+}
+.slideanim.slide {                  
+    visibility: visible;                  
+    animation: slide 1s;
+}
+.slideanim::after {
+    /* useful when its child elements are float:left; */
+    content: "";
+    display: table;
+    clear: both;
+}
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateY(50%);
+    } 
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    } 
+}
+
+
+#imageResources { 
+            background-image: url(../img/resources_cover.jpg);
+			margin-top: 20px;
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#imageResources { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/resources.jpg);
+				color: white;
+				
+				
+            }
+        }
+
+#imageAcumen { 
+            background-image: url(../img/ClubResources/AcumenResources/Quiz.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#imageAcumen { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/AcumenResources/QuizMobile.jpg);
+				color: white;
+            }
+        }
+
+#imageAero { 
+            background-image: url(../img/ClubResources/AeroResources/Aero.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#imageAero { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/AeroResources/AeroMobile.jpg);
+				color: white;
+            }
+        }
+#imageAuto { 
+            background-image: url(../img/ClubResources/AutoResources/Auto.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageAuto { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/AutoResources/AutoMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageCode { 
+            background-image: url(../img/ClubResources/CodeResources/Code.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageCode { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/CodeResources/CodeMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageCnA { 
+            background-image: url(../img/ClubResources/CnAResources/CnA.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageCnA { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/CnAResources/CnAMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageElectronics { 
+            background-image: url(../img/ClubResources/ElectronicsResources/Electronics.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageElectronics { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/ElectronicsResources/ElectronicsMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageEDC { 
+            background-image: url(../img/ClubResources/EDCResources/EDC.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageEDC { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/EDCResources/EDCMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageEquinox { 
+            background-image: url(../img/ClubResources/EquinoxResources/Equinox.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageEquinox { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/EquinoxResources/EquinoxMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageFnE { 
+            background-image: url(../img/ClubResources/FnEResources/FnE.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageFnE { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/FnEResources/FnEMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imagePrakriti { 
+            background-image: url(../img/ClubResources/PrakritiResources/Prakriti.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imagePrakriti { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/PrakritiResources/PrakritiMobile.jpg);
+				color: white;
+				
+            }
+        }
+#imageRobotics { 
+            background-image: url(../img/ClubResources/RoboticsResources/Robotics.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+			h1 {color: white}
+			#imageRobotics { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../img/ClubResources/RoboticsResources/RoboticsMobile.jpg);
+				color: white;
+				
+            }
+        }
+
+#playlist {
+  display: table;
+}
+
+#playlist li {
+  cursor: pointer;
+  padding: 8px;
+}
+
+#playlist li:hover {
+  color: blue;
+}
+
+#videoarea {
+  float: left;
+  width: 640px;
+  height: 480px;
+  margin: 10px;
+  border: 1px solid silver;
+}
+
+#resourcesQuadBasics { 
+            background-image: url(../../resources/AeroResources/QuadcopterBasics/QuadBasics.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#resourcesQuadBasics { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../../resources/AeroResources/QuadcopterBasics/QuadBasicMobiles.jpg);
+				color: white;
+            }
+        }
+#resourcesAutoQuad { 
+            background-image: url(../../resources/AeroResources/AutoQuad/autoquad.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#resourcesAutoQuad { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../../resources/AeroResources/AutoQuad/autoquadMobile.jpg);
+				color: white;
+            }
+        }
+
+
+
+#resourcesConsulting { 
+            background-image: url(../../resources/CnAResources/Consulting/ConsultingHeader.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#resourcesConsulting { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../../resources/CnAResources/Consulting/ConsultingHeaderMobile.jpg);
+				color: white;
+            }
+        }
+#resourcesAnalytics { 
+            background-image: url(../../resources/CnAResources/Analytics/AnalyticsHeader.jpg); 
+        }
+        @media only screen and (max-width: 450px) {
+            h1 {color: white}
+			#resourcesAnalytics { 
+                background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(../../resources/CnAResources/Analytics/AnalyticsHeaderMobile.jpg);
+				color: white;
+            }
+        }

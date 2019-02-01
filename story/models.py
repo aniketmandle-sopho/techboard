@@ -36,6 +36,7 @@ class StoryIndexPage(Page):
         context = super(StoryIndexPage, self).get_context(request)
         storypages = self.get_children().live().order_by('-first_published_at')
         context['storypages'] = storypages
+        context['random'] = 1511
         return context
 
 
