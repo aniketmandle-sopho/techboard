@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Technical Board IIT Guwahati">
-    <meta name="keywords" content="Technical Board, IIT guwahati, technical board , tech board">
-    <title>{%block title%}Technical Board{%endblock%}</title>
-    <!-- Styles -->
-    <link href="static/css/page.min.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
-    <link rel="icon" href="static/img/favicon.png">
-    <!--  Open Graph Tags -->
-    <meta property="og:title" content="Technical Board">
-    <meta property="og:description" content="The Student body of IIT Guwahati taking over all the technical aspects of students and improving the standards of Technology.">
-    <meta property="og:image" content="http://thetheme.io/thesaas/static/img/og-img.jpg">
-    <meta property="og:url" content="http://thetheme.io/thesaas/">
-    <meta name="Facebook" content="https://www.facebook.com/techboard.iitg/">
-    <script src="float-panel.js"></script>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-stick-dark" data-navbar="sticky">
-      <div class="container">
-        <div class="navbar-left">
-          <button class="navbar-toggler" type="button">&#9776;</button>
-          <a class="navbar-brand" href="/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Technical Board IIT Guwahati">
+  <meta name="keywords" content="Technical Board, IIT guwahati, technical board , tech board">
+  <title>{%block title%}Technical Board{%endblock%}</title>
+  <!-- Styles -->
+  <link href="static/css/page.min.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
+  <link rel="icon" href="static/img/favicon.png">
+  <!--  Open Graph Tags -->
+  <meta property="og:title" content="Technical Board">
+  <meta property="og:description" content="The Student body of IIT Guwahati taking over all the technical aspects of students and improving the standards of Technology.">
+  <meta property="og:image" content="http://thetheme.io/thesaas/static/img/og-img.jpg">
+  <meta property="og:url" content="http://thetheme.io/thesaas/">
+  <meta name="Facebook" content="https://www.facebook.com/techboard.iitg/">
+  <script src="float-panel.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light navbar-stick-dark" data-navbar="sticky">
+    <div class="container">
+      <div class="navbar-left">
+        <button class="navbar-toggler" type="button">&#9776;</button>
+        <a class="navbar-brand" href="/">
           <img class="logo-dark" src="static/img/logo-dark.png" alt="logo" width="45px" height="45px">
           <img class="logo-light" src="static/img/logo-light.png" alt="logo" width="45px" height="45px">
-          </a>
-        </div>
-        <section class="navbar-mobile">
-          <nav class="nav nav-navbar ml-auto">
-            <a id="home" class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/resources">Resources</a>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Clubs & 4i<span class="arrow"></span></a>
-              <nav class="nav columns-1 w-250">
-				<div class="row gap-y-3">
+        </a>
+      </div>
+      <section class="navbar-mobile">
+        <nav class="nav nav-navbar ml-auto">
+          <a id="home" class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/resources">Resources</a>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Clubs & 4i<span class="arrow"></span></a>
+            <nav class="nav columns-1 w-250">
+              <div class="row gap-y-3">
                 <a class="nav-link" href="home/4iHome.html"><img src="static/img/resources/RoboticsClubLogo.png" alt=".." height="25px" width="25px"> 4i Labs</a>
-				<a class="nav-link" href="home/AcumenHome.html"><img src="static/img/resources/AcumenLogo.png" alt=".." height="25px" width="25px"> Acumen: Quiz Club</a>
+                {%for clubs in page.get_children %}
+                <a class="nav-link" href="{{clubs.slug}}"><img src="static/img/resources/AcumenLogo.png" alt=".." height="25px" width="25px">{{clubs.title}}</a>
+                {%endfor%}
+
                 <a class="nav-link" href="home/AeroHome.html"><img src="static/img/resources/AeromodellingLogo.png" alt=".." height="25px" width="25px"> Aeromodelling Club</a>
                 <a class="nav-link" href="home/AutoHome.html"><img src="static/img/resources/AutoLogo.png" alt=".." height="25px" width="25px"> Automobile Club</a>
                 <a class="nav-link" href=
-				  "home/CodingHome.html"><img src="static/img/resources/codingclubLogo.png" alt=".." height="25px" width="25px"> Coding Club</a>
+                "home/CodingHome.html"><img src="static/img/resources/codingclubLogo.png" alt=".." height="25px" width="25px"> Coding Club</a>
                 <a class="nav-link" href="home/CnAHome.html"><img src="static/img/resources/CnALogo.png" alt=".." height="25px" width="25px"> Consulting and Analytics Club</a>
                 <a class="nav-link" href="home/ElectronicsHome.html"><img src="static/img/resources/ElectronicsClubLogo.png" alt=".." height="25px" width="25px"> Electronics Club</a>
                 <a class="nav-link" href="home/EDCHome.html"><img src="static/img/resources/EDCLogo.png" alt=".." height="25px" width="25px"> Entrepreneur Devlopment Cell</a>
@@ -52,44 +55,44 @@
                 <a class="nav-link" href="home/PrakritiHome.html"><img src="static/img/resources/PrakritiLogo.png" alt=".." height="25px" width="25px"> Prakriti Club</a>
                 <a class="nav-link" href="home/RoboticsHome.html"><img src="static/img/resources/RoboticsClubLogo.png" alt=".." height="25px" width="25px"> Robotics Club</a>
                 
-				</div>
-              </nav>
-            </li>
-            <a class="nav-link" href="http://172.16.101.237/all_docs/build">Documentation</a>
-            <a class="nav-link" href="Gallery.html">Gallery</a>
-            <a class="nav-link" href="Alumni.html">Alumni</a>
-            <a class="nav-link" href="Events.html">Events</a>
-            <a class="nav-link" href="Team.html">Team</a>
-            <a class="nav-link" href="Facilities.html">Facilities</a>
-          </nav>
-        </section>
-      </div>
-    </nav>
-    {%block content%}{%endblock%}
-    <footer class="footer  bg-dark ">
-      <div class="container">
-        <div class="row gap-y align-items-center">
-          <div class="col-md-6 text-center text-md-left">
-            <div class="nav nav-bold nav-uppercase justify-content-center justify-content-md-start">
-              <a class="nav-link hover-move-up " href="https://www.facebook.com/techboard.iitg/" target = "_blank">Facebook</a>
-              <a class="nav-link hover-move-up" href="mailto:techsec@iitg.ac.in" target = "_blank">Mail</a>
-              <a class="nav-link hover-move-up" href="tel:9182938122" target = "_blank">Contact</a>
-            </div>
-          </div>
-          <div class="col-md-6 text-center text-md-right">
-            <small>© <a href="index.html">Technical Board 2018</a>, All rights reserved.</small>
+              </div>
+            </nav>
+          </li>
+          <a class="nav-link" href="http://172.16.101.237/all_docs/build">Documentation</a>
+          <a class="nav-link" href="Gallery.html">Gallery</a>
+          <a class="nav-link" href="Alumni.html">Alumni</a>
+          <a class="nav-link" href="Events.html">Events</a>
+          <a class="nav-link" href="Team.html">Team</a>
+          <a class="nav-link" href="Facilities.html">Facilities</a>
+        </nav>
+      </section>
+    </div>
+  </nav>
+  {%block content%}{%endblock%}
+  <footer class="footer  bg-dark ">
+    <div class="container">
+      <div class="row gap-y align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <div class="nav nav-bold nav-uppercase justify-content-center justify-content-md-start">
+            <a class="nav-link hover-move-up " href="https://www.facebook.com/techboard.iitg/" target = "_blank">Facebook</a>
+            <a class="nav-link hover-move-up" href="mailto:techsec@iitg.ac.in" target = "_blank">Mail</a>
+            <a class="nav-link hover-move-up" href="tel:9182938122" target = "_blank">Contact</a>
           </div>
         </div>
+        <div class="col-md-6 text-center text-md-right">
+          <small>© <a href="index.html">Technical Board 2018</a>, All rights reserved.</small>
+        </div>
       </div>
-    </footer>
-    <!-- /.footer -->
-    <!--back to top-->  
-    <button class="btn btn-circle btn-primary scroll-top"><i class="fa fa-angle-up"></i></button>
-    <!-- Scripts -->
-    <script src="static/js/page.min.js"></script>
-    <script src="static/js/script.js"></script>
-    <script type="text/javascript">
-      $("#home").addClass('active');
-    </script>
-  </body>
+    </div>
+  </footer>
+  <!-- /.footer -->
+  <!--back to top-->  
+  <button class="btn btn-circle btn-primary scroll-top"><i class="fa fa-angle-up"></i></button>
+  <!-- Scripts -->
+  <script src="static/js/page.min.js"></script>
+  <script src="static/js/script.js"></script>
+  <script type="text/javascript">
+    $("#home").addClass('active');
+  </script>
+</body>
 </html>
